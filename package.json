@@ -1,0 +1,14 @@
+{
+  "name": "tracking",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": "true",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "repository": "https://github.com/alailsonko/Tracking-System.git",
+  "author": "alailsonko <aalailson3@gmail.com>",
+  "license": "MIT"
+}
