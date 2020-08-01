@@ -10,5 +10,8 @@
   },
   "repository": "https://github.com/alailsonko/Tracking-System.git",
   "author": "alailsonko <aalailson3@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
 }
