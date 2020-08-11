@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "expo-yarn-workspaces postinstall"
   },
   "dependencies": {
     "expo": "~38.0.9",
@@ -30,7 +31,8 @@
     "@types/react-native": "~0.61.23",
     "babel-preset-expo": "~8.2.0",
     "expo-yarn-workspaces": "^1.2.1",
-    "jest-expo": "~38.0.0"
+    "jest-expo": "~38.0.0",
+    "@tracking/axios-config": "*"
   },
   "jest": {
     "preset": "react-native"

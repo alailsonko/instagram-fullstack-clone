@@ -3,15 +3,23 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": "true",
+  "scripts": {
+    "test": "jest"
+  },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/shared/*"
     ]
   },
   "repository": "https://github.com/alailsonko/Tracking-System.git",
   "author": "alailsonko <aalailson3@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@tracking/eslint-config": "*",
+    "@types/jest": "^26.0.9",
+    "jest": "^26.3.0",
+    "ts-jest": "^26.1.4",
     "typescript": "^3.9.7"
   }
 }
