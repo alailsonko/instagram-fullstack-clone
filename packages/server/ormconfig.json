@@ -1,0 +1,17 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "docker",
+  "database": "tracking-system",
+  "entities": [
+     "src/database/entity/**/*.ts"
+  ],
+  "migrations": [
+     "src/database/migration/**/*.ts"
+  ],
+  "subscribers": [
+     "src/database/subscriber/**/*.ts"
+  ]
+}
