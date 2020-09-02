@@ -6,3 +6,11 @@ Fullstack application built in NodeJS, ReactJS, React Native. A tracking system 
 ### Control System - monorepo based
 --------------
 In revision control systems, a monorepo ("mono" from Greek μόνος, mónos, 'single, alone' and "repo" short for repository) is a software development strategy where code for many projects is stored in the same repository.
+
+## Installation
+
+run the command.
+
+```bash
+docker run --tracking-system POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+```
