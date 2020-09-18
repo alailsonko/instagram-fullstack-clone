@@ -4,7 +4,7 @@ import { HttpRequest, HttpResponse } from '../../protocols/http'
 export class SignUpController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      if (!httpRequest.body.name) {
+      if (!httpRequest.body.username) {
         const { statusCode, body } = {
           statusCode: 400,
           body: {
