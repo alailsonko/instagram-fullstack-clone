@@ -1,17 +1,24 @@
 {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "docker",
-  "database": "tracking-system",
-  "entities": [
-     "src/database/entity/**/*.ts"
-  ],
-  "migrations": [
-     "src/database/migration/**/*.ts"
-  ],
-  "subscribers": [
-     "src/database/subscriber/**/*.ts"
-  ]
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "docker",
+   "database": "postgres",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/database/entities/*.ts"
+   ],
+   "migrations": [
+      "src/database/migrations/*.ts"
+   ],
+   "subscribers": [
+      "src/database/subscribers/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/database/entities",
+      "migrationsDir": "src/database/migrations",
+      "subscribersDir": "src/database/subscribers"
+   }
 }
