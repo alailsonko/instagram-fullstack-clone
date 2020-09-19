@@ -43,7 +43,7 @@ describe('SignUpController', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body.message).toEqual(new Error('invalid password'))
   })
-  test('should return 400 if passwordConfirma is not provided', async () => {
+  test('should return 400 if passwordConfirm is not provided', async () => {
     const httpRequest = {
       body: {
         username: 'any_name',
