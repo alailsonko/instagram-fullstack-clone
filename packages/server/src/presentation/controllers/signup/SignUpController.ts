@@ -1,27 +1,20 @@
 import { Controller } from '../../protocols/Controller'
 import { HttpRequest, HttpResponse } from '../../protocols/http'
 
+const httpErrorHelper = (error: string): HttpResponse => {
+  return {
+    statusCode: 400,
+    body: { message: new Error(`invalid ${error}`) }
+  }
+}
+
 export class SignUpController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    if (!httpRequest.body.username) {
-      const { statusCode, body } = {
-        statusCode: 400,
-        body: { message: new Error('invalid username') }
-      }
-      return {
-        statusCode,
-        body
-      }
-    }
+    const accountData = ['email', 'username', 'password', 'passwordConfirm']
 
-    if (!httpRequest.body.email) {
-      const { statusCode, body } = {
-        statusCode: 400,
-        body: { message: new Error('invalid email') }
-      }
-      return {
-        statusCode,
-        body
+    for (const i of accountData) {
+      if (!httpRequest.body[i]) {
+        return httpErrorHelper(i)
       }
     }
   }
