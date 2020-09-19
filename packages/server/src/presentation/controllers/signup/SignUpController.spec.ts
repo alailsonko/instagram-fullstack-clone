@@ -59,4 +59,21 @@ describe('SignUpController', () => {
       new Error('invalid passwordConfirm')
     )
   })
+  test('should return 500 if password and passwordConfirm does not match', async () => {
+    const httpRequest = {
+      body: {
+        username: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirm: 'invalid_password'
+      }
+    }
+    const sut = new SignUpController()
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.message).toEqual(
+      new Error('invalid password does not match')
+    )
+  })
 })
