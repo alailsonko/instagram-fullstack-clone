@@ -15,4 +15,18 @@ describe('SignUpController', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body.message).toEqual(new Error('invalid username'))
   })
+  test('should return 400 if email is not provided', async () => {
+    const httpRequest = {
+      body: {
+        username: 'any_name',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    }
+    const sut = new SignUpController()
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.message).toEqual(new Error('invalid email'))
+  })
 })
