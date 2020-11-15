@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --watch",
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
+    "start": "node --trace-warnings ./dist/src/server.js",
     "dev:server": "tsnd --files src/server.ts",
-    "start": "ts-node --files -r  dotenv/config src/server.ts",
+    "test": "jest --watch",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ../../node_modules/typeorm/cli.js"
   },
   "dependencies": {

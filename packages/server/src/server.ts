@@ -3,7 +3,7 @@ import { Logger } from './utils/logger'
 import ConnectionDB from './database'
 import initiateEnvVars from './utils/env'
 
-ConnectionDB.then(async () => {
+ConnectionDB.then(() => {
   const app = express()
   initiateEnvVars()
   app.listen(process.env.PORT, () => {
