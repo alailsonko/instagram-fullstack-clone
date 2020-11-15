@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "12.16.3"
+  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node --trace-warnings ./dist/src/server.js",
