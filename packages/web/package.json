@@ -1,6 +1,18 @@
 {
-  "name": "web",
+  "name": "@tracking-system/web",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "dist/index",
+  "types": "dist/index",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn clean && yarn compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@tracking-system/server": "*"
+  }
 }

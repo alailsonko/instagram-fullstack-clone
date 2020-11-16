@@ -4,10 +4,13 @@
   "private": true,
   "main": "index.js",
   "scripts": {},
-  "workspaces": [
-    "./packages/server",
-    "./packages/web"
-  ],
+  "workspaces": {
+   "packages": [
+    "packages/server",
+    "packages/web",
+    "packages/*"
+  ]
+  } ,
   "repository": "https://github.com/alailsonko/Tracking-System.git",
   "author": "alailsonko <aalailson3@gmail.com>",
   "license": "MIT",
