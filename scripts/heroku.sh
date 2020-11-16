@@ -14,10 +14,10 @@ fi
 
   cd $PROJECT_ROOT
 
-  if [ "$BUILD_ENV" = "web-client" ]; then
-    yarn workspace web-client build
-  elif [ "$BUILD_ENV" = "api" ]; then
-    yarn workspace api build
+  if [ "$BUILD_ENV" = "@tracking-system/server" ]; then
+    yarn workspace @tracking-system/server build
+  elif [ "$BUILD_ENV" = "@tracking-system/web" ]; then
+    yarn workspace @tracking-system/web build
   else
     echo "Error: no build config for INATO_BUILD_ENV value '$INATO_BUILD_ENV'"
     exit 1

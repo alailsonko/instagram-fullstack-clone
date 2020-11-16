@@ -6,7 +6,7 @@
   "scripts": {
     "ts-server": "yarn workspace @tracking-system/server",
     "ts-web": "yarn workspace @tracking-system/web",
-    "heroku-postbuild": "./scripts/heroku.build"
+    "heroku-postbuild": "./scripts/heroku.sh"
   },
   "workspaces": {
     "packages": [
