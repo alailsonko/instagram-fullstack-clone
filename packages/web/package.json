@@ -10,7 +10,7 @@
   "scripts": {
     "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./dist",
-    "compile": "tsc -p tsconfig.build.json"
+    "compile": "tsc -p ./tsconfig.build.json"
   },
   "dependencies": {
   }
