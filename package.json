@@ -4,8 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "yarn workspace @tracking-system/server build",
-    "heroku-postbuild": "./scripts/heroku.sh"
+    "ts-server": "yarn workspace @tracking-system/server",
+    "ts-web": "yarn workspace @tracking-system/web"
   },
   "workspaces": {
  "nohoist": [
