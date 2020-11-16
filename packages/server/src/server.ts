@@ -1,11 +1,11 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 
 const app: Application = express();
 
 app.get("/", (req: Request, res: Response ) => {
    
 
-     res.status(200).json({ message: "hello world" })
+   return  res.status(200).json({ message: "hello world" })
 })
 
 app.listen(3333, () => {
