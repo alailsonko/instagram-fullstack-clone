@@ -1,2 +1,3 @@
 [build]
   base    = "packages/web"
+  command = "yarn build && yarn start"
