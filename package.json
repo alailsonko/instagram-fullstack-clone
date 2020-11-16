@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {},
   "workspaces": {
+    "nohoist": [
+      "packages/server",
+      "packages/web"
+    ],
    "packages": [
-    "packages/server",
-    "packages/web",
-    "packages/*"
   ]
   } ,
   "repository": "https://github.com/alailsonko/Tracking-System.git",

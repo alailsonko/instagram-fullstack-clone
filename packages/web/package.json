@@ -13,6 +13,5 @@
     "compile": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "@tracking-system/server": "*"
   }
 }
