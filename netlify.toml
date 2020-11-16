@@ -1,3 +1,4 @@
 [build]
   base    = "packages/web"
-  command = "yarn build && yarn start"
+  publish = "pages"
+  command = "yarn build"
