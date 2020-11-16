@@ -4,8 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "ts-server": "yarn workspace @tracking-system/server",
-    "ts-web": "yarn workspace @tracking-system/web",
+    "build": "yarn workspace @tracking-system/server build",
     "heroku-postbuild": "./scripts/heroku.sh"
   },
   "workspaces": {
