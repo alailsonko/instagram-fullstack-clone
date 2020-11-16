@@ -8,7 +8,9 @@ app.get("/", (req: Request, res: Response ) => {
    return  res.status(200).json({ message: "hello world" })
 })
 
-app.listen(3333, () => {
+const PORT = process.env.PORT || 3333
+
+app.listen(PORT, () => {
     console.log("listening on port 3333");
     
 })
