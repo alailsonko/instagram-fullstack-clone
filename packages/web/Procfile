@@ -1,1 +1,1 @@
-web: yarn workspace @tracking-system/web start
+web: yarn install && yarn workspace @tracking-system/web start
