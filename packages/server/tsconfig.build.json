@@ -1,13 +1,8 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "sourceMap": true,
- 
-      "outDir": "./dist",
-      "esModuleInterop": true
+    "extends": "../../tsconfig.build.json",
+    "compilerOptions": {
+     "outDir": "./dist"
     },
-  
     "include": [
       "src/**/*"
     ]

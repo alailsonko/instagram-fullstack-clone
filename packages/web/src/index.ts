@@ -1,4 +1,16 @@
+import express, { Application, Request, Response } from 'express';
 
-// import meaningOfLife from '@tracking-system/server/src/server';
+const app: Application = express();
 
-// console.log(meaningOfLife);
+app.get("/", (req: Request, res: Response ) => {
+   
+
+   return  res.status(200).json({ message: "hello LUDKA 💘 " })
+})
+
+const PORT = process.env.PORT || 3333
+
+app.listen(PORT, () => {
+    console.log("listening on port 3333");
+    
+})

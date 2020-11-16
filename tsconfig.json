@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "paths": {
       "@tracking-system/server": ["server/src"],
-      "@tracking-system/web": ["server/src"],
+      "@tracking-system/web": ["web/src"],
       "@tracking-system/*": ["*/src"]
     }
   }
