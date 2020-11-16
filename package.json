@@ -10,6 +10,8 @@
       "packages/web"
     ],
    "packages": [
+     "packages/**",
+     "packages/*"
   ]
   } ,
   "repository": "https://github.com/alailsonko/Tracking-System.git",
