@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn clean && yarn compile",
+    "build": "yarn workspace @tracking-system/server compile",
     "start": "node dist/server.js",
     "clean": "rm -rf ./dist",
     "compile": "tsc -p tsconfig.build.json"
