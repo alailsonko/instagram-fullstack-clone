@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn workspace @tracking-system/server compile",
+    "build": "yarn clean && yarn compile",
     "start": "node dist/server.js",
     "clean": "rm -rf ./dist",
     "compile": "tsc -p tsconfig.build.json"
@@ -19,6 +19,7 @@
     "@types/express": "^4.17.9" 
   },
   "dependencies": {
+
     "express": "^4.17.1"
   }
 }
