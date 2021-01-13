@@ -15,11 +15,3 @@ jobs:
         heroku_email: ${{secrets.HEROKU_API_KEY}}
       env:
         HD_APP_BASE: "packages/server"
-    - name: Release Web
-      uses: akhileshns/heroku-deploy@v3.0.4
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "ts-web-14112020"
-        heroku_email: ${{secrets.HEROKU_API_KEY}}
-      env:
-        HD_APP_BASE: "packages/web"
