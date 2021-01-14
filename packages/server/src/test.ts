@@ -1,5 +1,3 @@
-
-
 function teste (): number {
   return 33
 }
