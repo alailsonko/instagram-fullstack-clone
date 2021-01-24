@@ -17,7 +17,21 @@ describe('SignUpController', () => {
         
         expect(httpResponse.statusCode).toBe(400) 
     });
+
     
+    test('should return error case email is not provided', () => {
+        const httpRequest: HttpRequest = {
+            body: {
+              username: 'valid_username',
+              email: '',
+              password: 'valid_password',
+              passwordConfirmation: 'valid_password',
+            }
+        }
+        const httpResponse: HttpResponse = signUpController.handle(httpRequest)
+        
+        expect(httpResponse.statusCode).toBe(400) 
+    });
 });
 
 // username
