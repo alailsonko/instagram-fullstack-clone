@@ -1,4 +1,4 @@
-export type AccountModel = {
+export type AddAccount = {
   username: string
   email: string
   password: string

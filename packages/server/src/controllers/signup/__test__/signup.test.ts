@@ -7,13 +7,17 @@ describe('SignUpController', () => {
         
         const httpRequest: HttpRequest = {
             body: {
-              username: ''
+              username: '',
+              email: 'valid_email@email.com',
+              password: 'valid_password',
+              passwordConfirmation: 'valid_password',
             }
         }
         const httpResponse: HttpResponse = signUpController.handle(httpRequest)
         
         expect(httpResponse.statusCode).toBe(400) 
     });
+    
 });
 
 // username
