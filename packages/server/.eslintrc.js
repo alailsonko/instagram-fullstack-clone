@@ -3,5 +3,8 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json'
   },
-  rules: { '@typescript-eslint/restrict-template-expressions': 'off' }
+  rules: {
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off'
+  }
 }
