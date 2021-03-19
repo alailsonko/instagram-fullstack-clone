@@ -11,7 +11,7 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.0.4
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "ts-server-14112020"
+        heroku_app_name: "instagram-clone-fullstack"
         heroku_email: ${{secrets.HEROKU_API_KEY}}
       env:
         HD_APP_BASE: "packages/server"
