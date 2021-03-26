@@ -5,8 +5,8 @@ const app = express()
 
 dotenv.config()
 
-const port = `${process.env.PORT}`
+const PORT = `${process.env.PORT}`
 
-app.listen(port, () => {
-  console.log(`listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`)
 })
