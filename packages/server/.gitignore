@@ -1,3 +1,5 @@
 node_modules
 tmp
 coverage
+yarn-error.log
+yarn.lock
