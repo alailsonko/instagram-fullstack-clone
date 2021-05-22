@@ -1,68 +1,29 @@
 import express from 'express'
-import { graphqlHTTP } from 'express-graphql'
-import { buildSchema } from 'graphql'
+import { ApolloServer } from 'apollo-server-express'
+import depthLimit from 'graphql-depth-limit'
+import compression from 'compression'
+import cors from 'cors'
+import typeDefs from './schema'
+import resolvers from './resolver'
+import dotenv from 'dotenv'
 
-// Construct a schema, using GraphQL schema language
-const schema = buildSchema(`
-   type RandomDie {
-     numSides: Int!
-     rollOnce: Int!
-     roll(numRolls: Int!): [Int],
-   }
-
-   type Query {
-     getDie(numSides: Int): RandomDie
-   }
-`)
-
-interface INumRolls {
-  numRolls: number
-}
-
-interface INumSides {
-  numSides: number
-}
-
-interface IRandomDie {
-  numSides: number
-  rollOnce: () => number
-  roll: (args: INumRolls) => number[]
-}
-
-class RandomDie implements IRandomDie {
-  numSides: number
-  constructor (numSides: number) {
-    this.numSides = numSides
-  }
-
-  rollOnce (): number {
-    return 1 + Math.floor(Math.random() * this.numSides)
-  }
-
-  roll ({ numRolls }: INumRolls): number[] {
-    const output = []
-    for (let i = 0; i < numRolls; i++) {
-      output.push(this.rollOnce())
-    }
-    return output
-  }
-}
-
-// The root provides a resolver function for each API endpoint
-const root = {
-  getDie: ({ numSides }: INumSides) => {
-    return new RandomDie(numSides || 6)
-  }
-}
+dotenv.config()
 
 const app = express()
-
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true
-}))
-
-app.listen(4000, () => {
-  console.log('Running a graphQL API server at http://localhost:4000')
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  validationRules: [depthLimit(7)]
 })
+
+app.use(cors({
+  origin: '*'
+}))
+app.use(compression())
+server.applyMiddleware({ app, path: '/graphql' })
+
+const PORT = process.env.PORT
+
+app.listen(PORT, () =>
+  console.log(`http://localhost:${PORT}`)
+)
