@@ -4,7 +4,7 @@ import depthLimit from 'graphql-depth-limit'
 import compression from 'compression'
 import cors from 'cors'
 import typeDefs from './schema'
-import resolvers from './resolver'
+import resolvers from './resolvers'
 import dotenv from 'dotenv'
 
 dotenv.config()
