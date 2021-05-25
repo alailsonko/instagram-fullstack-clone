@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import userSchema from './user'
+import userSchema from './auth'
 import { makeExecutableSchema } from 'graphql-tools'
 
 const schema = makeExecutableSchema({
