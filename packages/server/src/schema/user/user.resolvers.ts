@@ -1,6 +1,6 @@
 import { IResolvers } from 'graphql-tools'
 
-const resolver: IResolvers = {
+const resolvers: IResolvers = {
   Query: {
     users: (): any => {
       return [
@@ -21,4 +21,4 @@ const resolver: IResolvers = {
   }
 }
 
-export default resolver
+export default resolvers

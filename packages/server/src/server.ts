@@ -3,16 +3,24 @@ import { ApolloServer } from 'apollo-server-express'
 import depthLimit from 'graphql-depth-limit'
 import compression from 'compression'
 import cors from 'cors'
-import typeDefs from './schema'
-import resolvers from './resolvers'
 import dotenv from 'dotenv'
+import schema from './schema'
+import { addSchemaLevelResolver } from 'graphql-tools'
 
 dotenv.config()
+const rootResolveFunction = (parent: any, args: any, context: any, info: any): any => {
+  // perform action before any other resolvers
+  console.log(parent)
+  console.log(args)
+  console.log(context)
+  console.log(info)
+}
+
+addSchemaLevelResolver(schema, rootResolveFunction)
 
 const app = express()
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   validationRules: [depthLimit(7)]
 })
 
