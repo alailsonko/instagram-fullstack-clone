@@ -5,3 +5,7 @@ export interface ErrorResponse {
 export interface OkResponse {
   ok: string
 }
+
+export interface IMutationRequest {
+  body?: any
+}
