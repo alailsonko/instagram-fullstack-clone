@@ -4,6 +4,7 @@ export interface ErrorResponse {
 
 export interface OkResponse {
   ok: string
+  message: any
 }
 
 export interface IMutationRequest {

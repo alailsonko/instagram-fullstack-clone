@@ -82,4 +82,25 @@ describe('SignUp Controller', () => {
     const response = sut.slugify.handle(mutationRequest.body.username)
     expect(response).toStrictEqual('valid_user')
   })
+  test('should response ok case everything is ok', () => {
+    const sut = makeSut()
+    const mutationRequest = {
+      body: {
+        username: 'valid user',
+        email: 'valid_email@example.com',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password'
+      }
+    }
+    const expected = {
+      ok: 'User created successfully',
+      message: {
+        username: 'valid_user',
+        email: 'valid_email@example.com'
+      }
+    }
+
+    const response = sut.signup.handle(mutationRequest)
+    expect(response).toStrictEqual(expected)
+  })
 })

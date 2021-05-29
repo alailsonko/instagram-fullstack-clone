@@ -16,8 +16,14 @@ class SignUpController implements Controller {
         return { error: `${field} must be provided` }
       }
     }
-
-    return { ok: 'User succesfull created' }
+    data.username = this.slugify.handle(data.username)
+    return {
+      ok: 'User created successfully',
+      message: {
+        username: data.username,
+        email: data.email
+      }
+    }
   }
 }
 
