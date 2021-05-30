@@ -103,4 +103,17 @@ describe('SignUp Controller', () => {
     const response = sut.signup.handle(mutationRequest)
     expect(response).toStrictEqual(expected)
   })
+  // test('should throw error case email in. invalid', () => {
+  //   const sut = makeSut()
+  //   const mutationRequest = {
+  //     body: {
+  //       username: 'valid_user',
+  //       email: 'valid_email@example.com',
+  //       password: 'valid_password',
+  //       passwordConfirmation: 'valid_password'
+  //     }
+  //   }
+  //   const response = sut.signup.handle(mutationRequest)
+  //   expect(response).toStrictEqual({ error: 'passwordConfirmation must be provided' })
+  // })
 })
