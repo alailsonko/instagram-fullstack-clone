@@ -106,7 +106,7 @@ describe('SignUp Controller', () => {
   // test('should throw error case email in. invalid', () => {
   //   const sut = makeSut()
   //   const mutationRequest = {
-  //     body: {
+  //     body: {.
   //       username: 'valid_user',
   //       email: 'valid_email@example.com',
   //       password: 'valid_password',
