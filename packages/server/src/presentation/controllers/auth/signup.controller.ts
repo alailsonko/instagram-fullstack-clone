@@ -1,11 +1,17 @@
 import Controller from '../../protocols/controller.protocol'
 import { ErrorResponse, OkResponse, IMutationRequest } from '../../protocols/http.protocol'
-import SlugifyValidator from './../../protocols/slugify.protocol'
+import ISlugifyValidator from './../../protocols/slugify.protocol'
+import IEmailValidator from './../../protocols/email-validator.protocol'
 
 class SignUpController implements Controller {
-  private readonly slugify
-  constructor (slugify: SlugifyValidator) {
-    this.slugify = slugify
+  private readonly slugifyValidator
+  private readonly emailValidator
+  constructor (
+    slugifyValidator: ISlugifyValidator,
+    emailValidator: IEmailValidator
+  ) {
+    this.slugifyValidator = slugifyValidator
+    this.emailValidator = emailValidator
   }
 
   handle (mutationRequest: IMutationRequest): ErrorResponse | OkResponse {
@@ -16,7 +22,10 @@ class SignUpController implements Controller {
         return { error: `${field} must be provided` }
       }
     }
-    data.username = this.slugify.handle(data.username)
+    if (!this.emailValidator.isValid(data.email)) {
+      return { error: 'email must be valid' }
+    }
+    data.username = this.slugifyValidator.handle(data.username)
     return {
       ok: 'User created successfully',
       message: {
