@@ -3,7 +3,6 @@ export interface ErrorResponse {
 }
 
 export interface OkResponse {
-  ok: string
   message: any
 }
 

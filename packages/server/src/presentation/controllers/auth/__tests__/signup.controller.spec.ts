@@ -97,10 +97,12 @@ describe('SignUp Controller', () => {
       }
     }
     const expected = {
-      ok: 'User created successfully',
       message: {
-        username: 'valid_user',
-        email: 'valid_email@example.com'
+        ok: 'User created successfully',
+        data: {
+          username: 'valid_user',
+          email: 'valid_email@example.com'
+        }
       }
     }
 

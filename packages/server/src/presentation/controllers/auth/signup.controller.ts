@@ -1,5 +1,9 @@
 import Controller from '../../protocols/controller.protocol'
-import { ErrorResponse, OkResponse, IMutationRequest } from '../../protocols/http.protocol'
+import {
+  ErrorResponse,
+  OkResponse,
+  IMutationRequest
+} from '../../protocols/http.protocol'
 import ISlugifyValidator from './../../protocols/slugify.protocol'
 import IEmailValidator from './../../protocols/email-validator.protocol'
 
@@ -15,7 +19,12 @@ class SignUpController implements Controller {
   }
 
   handle (mutationRequest: IMutationRequest): ErrorResponse | OkResponse {
-    const fields: string[] = ['username', 'email', 'password', 'passwordConfirmation']
+    const fields: string[] = [
+      'username',
+      'email',
+      'password',
+      'passwordConfirmation'
+    ]
     const data = mutationRequest.body
     for (const field of fields) {
       if (!data[field]) {
@@ -26,11 +35,14 @@ class SignUpController implements Controller {
       return { error: 'email must be valid' }
     }
     data.username = this.slugifyValidator.handle(data.username)
+
     return {
-      ok: 'User created successfully',
       message: {
-        username: data.username,
-        email: data.email
+        ok: 'User created successfully',
+        data: {
+          username: data.username,
+          email: data.email
+        }
       }
     }
   }
