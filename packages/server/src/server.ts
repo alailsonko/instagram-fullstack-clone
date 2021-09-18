@@ -21,7 +21,10 @@ addSchemaLevelResolver(schema, rootResolveFunction)
 const app = express()
 const server = new ApolloServer({
   schema,
-  validationRules: [depthLimit(7)]
+  validationRules: [depthLimit(7)],
+  context: ({ req }) => {
+    console.log(req.headers)
+  }
 })
 
 app.use(cors({
