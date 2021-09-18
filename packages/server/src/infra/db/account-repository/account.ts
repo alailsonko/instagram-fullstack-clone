@@ -1,22 +1,18 @@
 import { AddAccountRepository } from '../../../data/protocols/add-account-repository.protocol'
 import { AddAccountModel } from '../../../domain/usecases/add-account'
 import { AccountModel } from '../../../domain/models/account'
-import { PrismaClient } from '@prisma/client'
+import { Context } from '../context'
 
-const prisma = new PrismaClient()
+export default class AccountPGRepository implements AddAccountRepository {
+  private readonly ctx: Context
+  constructor (ctx: Context) {
+    this.ctx = ctx
+  }
 
-export class AccountPGRepository implements AddAccountRepository {
   async add (accountData: AddAccountModel): Promise<AccountModel> {
-    await prisma.user.create({
+    // eslint-disable-next-line @typescript-eslint/return-await
+    return await this.ctx.prisma.user.create({
       data: accountData
-    })
-    return await new Promise((resolve, reject) => {
-      return resolve({
-        id: '1',
-        email: 'prisma@example.com',
-        name: 'prisma',
-        password: 'prisma'
-      })
     })
   }
 }
