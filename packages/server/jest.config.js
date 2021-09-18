@@ -9,5 +9,6 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '.+\\.ts$': 'ts-jest'
-  }
+  },
+  setupFilesAfterEnv: ['<rootDir>/src/infra/db/singleton.ts']
 }
