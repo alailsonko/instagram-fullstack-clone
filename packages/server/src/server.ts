@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import schema from './graphql'
+import schema from './graphql/schemasMap'
 import dotenv from 'dotenv'
 
 dotenv.config()
