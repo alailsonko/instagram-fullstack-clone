@@ -4,9 +4,10 @@ import * as emptyTypeDefs from './schemas/empty.graphql'
 import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from './resolversMap'
 import { GraphQLSchema } from 'graphql'
+import { merge } from 'lodash'
 
 const schema: GraphQLSchema = makeExecutableSchema({
-  typeDefs: [emptyTypeDefs, UserTypeDefs],
+  typeDefs: merge(emptyTypeDefs, UserTypeDefs),
   resolvers
 })
 

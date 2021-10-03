@@ -1,39 +1,28 @@
 import { IResolvers } from 'graphql-tools'
 import {
-  AuthenticateResponse,
   MutationRegisterArgs,
   QueryLoginArgs
 } from '../generated'
+import SignUpController, { SignUpResponse } from '../../controllers/signup.controller'
 
 export const UserResolvers: IResolvers = {
   Query: {
     async login (
       _: undefined,
-      args: QueryLoginArgs
-    ): Promise<AuthenticateResponse> {
-      return {
-        user: {
-          email: 'admin@admin.com',
-          id: '1',
-          username: 'admin'
-        },
-        token: 'sometoken'
-      }
+      args: QueryLoginArgs,
+      ctx
+    ) {
+      console.log(args)
     }
   },
   Mutation: {
     async register (
       _: undefined,
-      args: MutationRegisterArgs
-    ): Promise<AuthenticateResponse> {
-      return {
-        user: {
-          email: 'admin@admin.com',
-          id: '1',
-          username: 'admin'
-        },
-        token: 'sometoken'
-      }
+      args: MutationRegisterArgs,
+      ctx
+    ): Promise<SignUpResponse> {
+      const signupController = new SignUpController()
+      return await signupController.handle(args, ctx)
     }
   }
 }
