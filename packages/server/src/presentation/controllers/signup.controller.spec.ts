@@ -1,7 +1,7 @@
 import SignUpController from './signup.controller'
-import { MutationRegisterArgs } from '../graphql/generated'
-import { ContextGraphQL } from '../domain/auth/context'
-import { UserInputError } from 'apollo-server'
+import { MutationRegisterArgs } from '../../main/graphql/generated'
+import { ContextGraphQL } from '../../domain/auth/context'
+import { UserInputError, AuthenticationError } from 'apollo-server'
 
 describe('SignUpController', () => {
   test('should throw error case has no email field', async () => {
@@ -64,6 +64,7 @@ describe('SignUpController', () => {
       passwordConfirm: '',
       username: 'test'
     }
+
     const fakeContextGraphQL: ContextGraphQL = {
       token: 'bearer somtoken'
     }
@@ -71,5 +72,23 @@ describe('SignUpController', () => {
       async () =>
         await signupController.handle(fakeUserRegister, fakeContextGraphQL)
     ).rejects.toThrow(new UserInputError('passwordConfirm must not be empty.'))
+  })
+  test('should throw error case password and passwordConfirm not matches', async () => {
+    const signupController = new SignUpController()
+
+    const fakeUserRegister: MutationRegisterArgs = {
+      email: 'test@test.com',
+      password: '1234',
+      passwordConfirm: '12345',
+      username: 'test'
+    }
+    
+    const fakeContextGraphQL: ContextGraphQL = {
+      token: 'bearer somtoken'
+    }
+    await expect(
+      async () =>
+        await signupController.handle(fakeUserRegister, fakeContextGraphQL)
+    ).rejects.toThrow(new AuthenticationError('authentication error.'))
   })
 })

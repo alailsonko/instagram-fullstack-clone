@@ -1,10 +1,10 @@
-import { ContextGraphQL } from '../domain/auth/context'
+import { ContextGraphQL } from '../../domain/auth/context'
 import {
   MutationRegisterArgs,
   AuthenticateResponse
-} from '../graphql/generated'
+} from '../../main/graphql/generated'
 import { Controller } from './controller.protocol'
-import { UserInputError } from 'apollo-server'
+import { UserInputError, AuthenticationError } from 'apollo-server'
 
 export type SignUpResponse = AuthenticateResponse | UserInputError
 
@@ -21,8 +21,7 @@ implements Controller<SignUpResponse, MutationRegisterArgs> {
     args: MutationRegisterArgs,
     ctx: ContextGraphQL
   ): Promise<SignUpResponse> {
-    console.log(args)
-    console.log(ctx)
+
     const fields = ['email', 'username', 'password', 'passwordConfirm'] as [
       INDEX_ARGS_Signature['email'],
       INDEX_ARGS_Signature['username'],
@@ -33,6 +32,12 @@ implements Controller<SignUpResponse, MutationRegisterArgs> {
     for (const field of fields) {
       if (!(args as INDEX_ARGS_Signature)[field]) { throw new UserInputError(`${field} must not be empty.`) }
     }
+
+    if(args.password !== args.passwordConfirm) {
+      throw new AuthenticationError('authentication error.')
+    }
+
+
 
     return {
       user: {
