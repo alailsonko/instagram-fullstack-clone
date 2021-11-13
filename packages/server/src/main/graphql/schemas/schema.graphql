@@ -11,9 +11,13 @@ type AuthenticateResponse {
   user: User!
 }
 
+scalar Date
 
 type User {
-  id: String!
+  id: Int!
   username: String!
   email: String!
+  createdAt: Date!
+  updatedAt: Date!
+  uuid: String!
 }

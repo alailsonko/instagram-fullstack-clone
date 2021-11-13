@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient, User } from '@prisma/client'
+import { ForbiddenError } from "apollo-server";
 
 class UserRepository {
   private prisma: PrismaClient;

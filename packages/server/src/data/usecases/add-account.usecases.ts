@@ -20,7 +20,9 @@ class AddAccount implements IAddAccount {
     const hashedPassword = await this.hashPassword.encrypt(data.password);
     data.password = hashedPassword;
     const response = (await this.userRepository.create(data)) as ResponseDB;
-    delete response.password;
+    if (response && response.password) {
+      delete response.password;
+    }
     return response;
   }
 }
