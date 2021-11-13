@@ -2782,17 +2782,17 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@prisma/client@^2.25.0":
-  version "2.30.3"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.30.3.tgz#49c1015e2cec26a44b20c62eb2fd738cb0bb043b"
-  integrity sha512-Ey2miZ+Hne12We3rA8XrlPoAF0iuKEhw5IK2nropaelSt0Ju3b2qSz9Qt50a/1Mx3+7yRSu/iSXt8y9TUMl/Yw==
+"@prisma/client@^3.4.2":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.4.2.tgz#36b8da0d788e4f5dc7c4a5e83a9f83b0e2bfbb1a"
+  integrity sha512-HyQGq9m1V99zpNSJ/FojZJnvzqWUd18ErIXwxLzSuurS23XlhHEPtxgpxJaegBmjsr/KCYqcXFOPmM1gRLpI0w==
   dependencies:
-    "@prisma/engines-version" "2.30.1-2.b8c35d44de987a9691890b3ddf3e2e7effb9bf20"
+    "@prisma/engines-version" "3.4.1-2.57771c0558568c7d08bd34c7248af5244ae16bd9"
 
-"@prisma/engines-version@2.30.1-2.b8c35d44de987a9691890b3ddf3e2e7effb9bf20":
-  version "2.30.1-2.b8c35d44de987a9691890b3ddf3e2e7effb9bf20"
-  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.30.1-2.b8c35d44de987a9691890b3ddf3e2e7effb9bf20.tgz#d5ef55c92beeba56e52bba12b703af0bfd30530d"
-  integrity sha512-/iDRgaoSQC77WN2oDsOM8dn61fykm6tnZUAClY+6p+XJbOEgZ9gy4CKuKTBgrjSGDVjtQ/S2KGcYd3Ring8xaw==
+"@prisma/engines-version@3.4.1-2.57771c0558568c7d08bd34c7248af5244ae16bd9":
+  version "3.4.1-2.57771c0558568c7d08bd34c7248af5244ae16bd9"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-3.4.1-2.57771c0558568c7d08bd34c7248af5244ae16bd9.tgz#ad922c461baea416ec26ad33a144c70ae7e997d4"
+  integrity sha512-H8bnBT5jLap+0nULBAGjf+xb5XNn4d60U4J9cck+UanyEkeMS3aYCeHvNiQl46XwvN60jkUX8BwV3NOEmPh0SQ==
 
 "@prisma/engines@2.30.1-2.b8c35d44de987a9691890b3ddf3e2e7effb9bf20":
   version "2.30.1-2.b8c35d44de987a9691890b3ddf3e2e7effb9bf20"
@@ -7651,7 +7651,7 @@ jest-message-util@^26.6.2:
     slash "^3.0.0"
     stack-utils "^2.0.2"
 
-jest-mock-extended@^1.0.16:
+jest-mock-extended@1.0.18:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/jest-mock-extended/-/jest-mock-extended-1.0.18.tgz#27a40e882c09f8230243fc6765fe7285b03f2b4b"
   integrity sha512-qf1n7lIa2dTxxPIBr+FlXrbj3hnV1sG9DPZsrr2H/8W+Jw0wt6OmeOQsPcjRuW8EXIECC9pDXsSIfEdn+HP7JQ==
@@ -10959,6 +10959,11 @@ ts-node@^9, ts-node@^9.0.0:
     make-error "^1.1.1"
     source-map-support "^0.5.17"
     yn "3.1.1"
+
+ts-toolbelt@^9.6.0:
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-9.6.0.tgz#50a25426cfed500d4a09bd1b3afb6f28879edfd5"
+  integrity sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==
 
 tsconfig-paths@^3.11.0:
   version "3.11.0"

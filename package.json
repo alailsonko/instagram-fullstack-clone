@@ -21,5 +21,7 @@
   "devDependencies": {
     "concurrently": "^6.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "ts-toolbelt": "^9.6.0"
+  }
 }
