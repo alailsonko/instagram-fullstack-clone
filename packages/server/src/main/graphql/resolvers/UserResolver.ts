@@ -3,7 +3,8 @@ import {
   MutationRegisterArgs,
   QueryLoginArgs
 } from '../generated'
-import SignUpController, { SignUpResponse } from '../../../presentation/controllers/signup.controller'
+import { SignUpResponse } from '../../../presentation/controllers/signup.controller'
+import makeSignUpController from '../../../presentation/factories/signup.factory'
 
 export const UserResolvers: IResolvers = {
   Query: {
@@ -21,7 +22,7 @@ export const UserResolvers: IResolvers = {
       args: MutationRegisterArgs,
       ctx
     ): Promise<SignUpResponse> {
-      const signupController = new SignUpController()
+      const signupController = makeSignUpController()
       return await signupController.handle(args, ctx)
     }
   }
