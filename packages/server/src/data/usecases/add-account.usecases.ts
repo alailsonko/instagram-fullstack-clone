@@ -1,7 +1,7 @@
 import { Prisma, User } from "@prisma/client";
 import { Object } from "ts-toolbelt";
 import HashPassword from "../../infra/cryptography/hash-password.cryptography";
-import UserRepository from "../../infra/repositories/users.repositories";
+import UserRepository from "../../infra/repositories/users/users.repositories";
 
 type ResponseUser = Object.Omit<User, "password">;
 type ResponseDB = Object.Optional<User, "password">;

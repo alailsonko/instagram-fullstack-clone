@@ -1,12 +1,12 @@
 import SignUpController from "./signup.controller";
-import { AuthenticateResponse, MutationRegisterArgs } from "../../main/graphql/generated";
-import { ContextGraphQL } from "../../domain/auth/context";
+import { AuthenticateResponse, MutationRegisterArgs } from "../../../main/graphql/generated";
+import { ContextGraphQL } from "../../../domain/auth/context";
 import { UserInputError, AuthenticationError } from "apollo-server";
-import AddAccount from "../../data/usecases/add-account.usecases";
-import HashPassword from "../../infra/cryptography/hash-password.cryptography";
-import UserRepository from "../../infra/repositories/users.repositories";
-import { createMockContext } from "../../infra/context";
-import AuthToken from "../../infra/services/auth-token.service";
+import AddAccount from "../../../data/usecases/add-account.usecases";
+import HashPassword from "../../../infra/cryptography/hash-password.cryptography";
+import UserRepository from "../../../infra/repositories/users/users.repositories";
+import { createMockContext } from "../../../infra/context";
+import AuthToken from "../../../infra/services/auth-token.service";
 import dotenv from 'dotenv'
 
 dotenv.config()

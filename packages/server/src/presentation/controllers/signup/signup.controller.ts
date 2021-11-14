@@ -1,16 +1,13 @@
-import { ContextGraphQL } from "../../domain/auth/context";
+import { ContextGraphQL } from "../../../domain/auth/context";
 import {
   MutationRegisterArgs,
   AuthenticateResponse,
-} from "../../main/graphql/generated";
+} from "../../../main/graphql/generated";
 import { O } from "ts-toolbelt";
-import { Controller } from "./controller.protocol";
+import { Controller } from "./../controller.protocol";
 import { UserInputError, AuthenticationError } from "apollo-server";
-import AddAccount from "../../data/usecases/add-account.usecases";
-import { User } from "@prisma/client";
-import AuthToken from "../../infra/services/auth-token.service";
-
-type ResponseUser = O.Omit<User, "password">;
+import AddAccount from "../../../data/usecases/add-account.usecases";
+import AuthToken from "../../../infra/services/auth-token.service";
 
 
 export type SignUpResponse = AuthenticateResponse;

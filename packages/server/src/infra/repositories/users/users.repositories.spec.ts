@@ -1,5 +1,5 @@
 import UserRepository from "./users.repositories";
-import { createMockContext, MockContext } from "../context";
+import { createMockContext, MockContext } from "../../context";
 
 let mockCtx: MockContext;
 
@@ -35,7 +35,7 @@ describe("UserRepository", () => {
       updatedAt: new Date(),
     };
     mockCtx.prisma.user.create.mockResolvedValue(resolveUser);
-
+    
     expect(resolveUser).toBe(await userRepository.create(resolveUser));
   });
 });

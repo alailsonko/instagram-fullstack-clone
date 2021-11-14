@@ -3,7 +3,7 @@ import {
   MutationRegisterArgs,
   QueryLoginArgs
 } from '../generated'
-import { SignUpResponse } from '../../../presentation/controllers/signup.controller'
+import { SignUpResponse } from '../../../presentation/controllers/signup/signup.controller'
 import makeSignUpController from '../../../presentation/factories/signup.factory'
 
 export const UserResolvers: IResolvers = {

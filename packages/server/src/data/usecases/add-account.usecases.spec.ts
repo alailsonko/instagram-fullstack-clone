@@ -1,7 +1,7 @@
 import { Prisma, User } from '@prisma/client'
 import AddAccount from './add-account.usecases'
 import HashPassword from '../../infra/cryptography/hash-password.cryptography'
-import UserRepository from '../../infra/repositories/users.repositories'
+import UserRepository from '../../infra/repositories/users/users.repositories'
 import { createMockContext } from '../../infra/context'
 
 describe('AddAccount', () => {
