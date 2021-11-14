@@ -1,40 +1,64 @@
-import { UserInputError } from "apollo-server";
+import { AuthenticationError, UserInputError } from "apollo-server";
+import VerifyAccount from "../../../data/usecases/verify-account.usecases";
 import { ContextGraphQL } from "../../../domain/auth/context";
-import { AuthenticateResponse, QueryLoginArgs } from "../../../main/graphql/generated";
+import AuthToken from "../../../infra/services/auth-token.service";
+import {
+  AuthenticateResponse,
+  QueryLoginArgs,
+} from "../../../main/graphql/generated";
 import { Controller } from "../controller.protocol";
 
 interface INDEX_ARGS_Signature {
-  email: 'email';
-  username: 'username';
-  password: 'password';
+  email: "email";
+  username: "username";
+  password: "password";
 }
 
-class SignInController implements Controller<AuthenticateResponse, QueryLoginArgs> {
-  async handle(args: QueryLoginArgs, ctx: ContextGraphQL): Promise<AuthenticateResponse> {
-    const fields = ['email', 'username', 'password'] as [
-      INDEX_ARGS_Signature['email'],
-      INDEX_ARGS_Signature['username'],
-      INDEX_ARGS_Signature['password'],
-    ]
-    if (!args['email'] && !args['username']) {
-      throw new UserInputError('email or username must not be empty.')
+class SignInController
+  implements Controller<AuthenticateResponse, QueryLoginArgs>
+{
+  private verifyAccount: VerifyAccount;
+  private authToken: AuthToken;
+  constructor(verifyAccount: VerifyAccount, authToken: AuthToken) {
+    (this.verifyAccount = verifyAccount), (this.authToken = authToken);
+  }
+  async handle(
+    args: QueryLoginArgs,
+    ctx: ContextGraphQL
+  ): Promise<AuthenticateResponse> {
+    const fields = ["email", "username", "password"] as [
+      INDEX_ARGS_Signature["email"],
+      INDEX_ARGS_Signature["username"],
+      INDEX_ARGS_Signature["password"]
+    ];
+    if (!args["email"] && !args["username"]) {
+      throw new UserInputError("email or username must not be empty.");
     }
-    if (!args['password']) {
-      throw new UserInputError('password must not be empty.')
+    if (!args["password"]) {
+      throw new UserInputError("password must not be empty.");
     }
-    
+    const uniqueIdentifier = args.email
+      ? `${args.email}|email`
+      : `${args.username}|username`;
+    const [isValid, user] = await this.verifyAccount.verify({
+      uniqueIdentifier,
+      password: args.password,
+    });
+    if (!isValid || !user) {
+      throw new AuthenticationError("authentication error.");
+    }
+    const token = await this.authToken.generate({
+      email: user.email,
+      username: user.username,
+      id: user.id,
+      uuid: user.uuid,
+    });
+    delete user.password;
     return {
-     token: 'sometoken',
-     user: {
-       createdAt: new Date(),
-       updatedAt: new Date(),
-       email: 'valid@mail.com',
-       id: 1,
-       username: 'valid_username',
-       uuid: '1234-abcd'
-     }
-   }
-  };
+      token,
+      user,
+    };
+  }
 }
 
-export default SignInController
+export default SignInController;

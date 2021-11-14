@@ -8,7 +8,8 @@ import { Controller } from "./../controller.protocol";
 import { UserInputError, AuthenticationError } from "apollo-server";
 import AddAccount from "../../../data/usecases/add-account.usecases";
 import AuthToken from "../../../infra/services/auth-token.service";
-
+import { slugifyParser } from "../../../utils/slugify";
+import validator from "validator";
 
 export type SignUpResponse = AuthenticateResponse;
 
@@ -23,13 +24,13 @@ export default class SignUpController
   implements Controller<SignUpResponse, MutationRegisterArgs>
 {
   private addAccount: AddAccount;
-  private authToken: AuthToken
+  private authToken: AuthToken;
   constructor(addAccount: AddAccount, authToken: AuthToken) {
     this.addAccount = addAccount;
-    this.authToken = authToken
+    this.authToken = authToken;
   }
   async handle(
-    args: O.Optional<MutationRegisterArgs, 'passwordConfirm'>,
+    args: O.Optional<MutationRegisterArgs, "passwordConfirm">,
     ctx: ContextGraphQL
   ): Promise<SignUpResponse> {
     const fields = ["email", "username", "password", "passwordConfirm"] as [
@@ -45,20 +46,28 @@ export default class SignUpController
       }
     }
 
+    if (!validator.isEmail(args.email)) {
+      throw new UserInputError("must be a valid email.");
+    }
+
     if (args.password !== args.passwordConfirm) {
       throw new AuthenticationError("authentication error.");
     }
-   delete args.passwordConfirm
-   const user = await this.addAccount.add(Object.assign(args, {
-     createdAt: new Date(),
-     updatedAt: new Date(),
-   }))
-   const token = await this.authToken.generate({
-     email: user.email,
-     username: user.username,
-     id: user.id,
-     uuid: user.uuid,
-   })
+    delete args.passwordConfirm;
+    slugifyParser(args.username);
+    const user = await this.addAccount.add(
+      Object.assign(args, {
+        username: slugifyParser(args.username),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+    );
+    const token = await this.authToken.generate({
+      email: user.email,
+      username: user.username,
+      id: user.id,
+      uuid: user.uuid,
+    });
     return {
       user,
       token,

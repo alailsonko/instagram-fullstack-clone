@@ -1,39 +1,49 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import { AuthenticationError } from "apollo-server-express";
 import { O } from "ts-toolbelt";
 import ComparePassword from "../../infra/cryptography/compare-password.cryptography";
 import UserRepository from "../../infra/repositories/users/users.repositories";
 import { QueryLoginArgs } from "../../main/graphql/generated";
 
-type CompulsoryQueryLogin = O.Compulsory<QueryLoginArgs, "email" | "username" | "password">;
+type CompulsoryQueryLogin = O.Compulsory<
+  { uniqueIdentifier: string; password: string },
+  "uniqueIdentifier" | "password"
+>;
 
 interface IVerifyAccount {
-  verify(data: CompulsoryQueryLogin): Promise<boolean>;
+  verify(data: CompulsoryQueryLogin): Promise<[boolean, O.Optional<User, "password"> | null]>;
 }
 
 class VerifyAccount implements IVerifyAccount {
   private userRepository: UserRepository;
-  private comparePassword: ComparePassword
-  constructor(userRepository: UserRepository, comparePassword: ComparePassword) {
+  private comparePassword: ComparePassword;
+  constructor(
+    userRepository: UserRepository,
+    comparePassword: ComparePassword
+  ) {
     this.userRepository = userRepository;
-    this.comparePassword = comparePassword
+    this.comparePassword = comparePassword;
   }
   async verify(
     data: CompulsoryQueryLogin
-  ): Promise<boolean> {
+  ): Promise<[boolean, O.Optional<User, "password"> | null]> {
+    const [value, field] = data.uniqueIdentifier.split("|");
     const user = await this.userRepository.find(
-      data.email ? { email: data.email } : { username: data.username }
+      field === "email" ? { [field]: value } : { [field]: value }
     );
     if (!user) {
-      throw new AuthenticationError("authentication error");
+      return [false, null];
     }
-    const isValid = await this.comparePassword.compareHash(data.password, user.password)
-    
-    if(!isValid) {
-      throw new AuthenticationError("authentication error");
-    };
-    
-    return true
+    const isValid = await this.comparePassword.compareHash(
+      data.password,
+      user.password
+    );
+
+    if (!isValid) {
+      return [false, null];
+    }
+
+    return [true, user];
   }
 }
 

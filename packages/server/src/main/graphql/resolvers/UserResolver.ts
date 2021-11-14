@@ -5,6 +5,7 @@ import {
 } from '../generated'
 import { SignUpResponse } from '../../../presentation/controllers/signup/signup.controller'
 import makeSignUpController from '../../../presentation/factories/signup.factory'
+import makeSignInController from '../../../presentation/factories/signin.factory'
 
 export const UserResolvers: IResolvers = {
   Query: {
@@ -13,7 +14,8 @@ export const UserResolvers: IResolvers = {
       args: QueryLoginArgs,
       ctx
     ) {
-      console.log(args)
+      const signinController = makeSignInController()
+      return await signinController.handle(args, ctx)
     }
   },
   Mutation: {
