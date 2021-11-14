@@ -6,6 +6,10 @@ import AddAccount from "../../data/usecases/add-account.usecases";
 import HashPassword from "../../infra/cryptography/hash-password.cryptography";
 import UserRepository from "../../infra/repositories/users.repositories";
 import { createMockContext } from "../../infra/context";
+import AuthToken from "../../infra/services/auth-token.service";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 async function makeSut() {
   const mockPrisma = createMockContext();
@@ -22,7 +26,9 @@ async function makeSut() {
     new HashPassword(),
     new UserRepository(mockPrisma.prisma)
   );
-  const signUpController = new SignUpController(addAccount);
+  const authToken = new AuthToken()
+  jest.spyOn(authToken, 'generate').mockResolvedValueOnce('sometoken')
+  const signUpController = new SignUpController(addAccount, authToken);
   return {
     signUpController,
     mockPrisma,

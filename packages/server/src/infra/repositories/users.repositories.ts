@@ -1,5 +1,5 @@
 import { Prisma, PrismaClient, User } from '@prisma/client'
-import { ForbiddenError } from "apollo-server";
+import { ApolloError } from 'apollo-server-express';
 
 class UserRepository {
   private prisma: PrismaClient;
@@ -7,14 +7,18 @@ class UserRepository {
     this.prisma = prisma
   }
 
-  find(where: Prisma.UserWhereUniqueInput): Prisma.Prisma__UserClient<User | null> {
+  async find(where: Prisma.UserWhereUniqueInput) {
     return this.prisma.user.findUnique({
       where 
+    }).catch((error: Error) => {
+      throw new ApolloError(error.message)
     })
   }
-  create(data: Prisma.UserCreateInput) {
+  async create(data: Prisma.UserCreateInput) {
     return this.prisma.user.create({
       data
+    }).catch((error: Error) => {
+      throw new ApolloError(error.message)
     })
   }
 }

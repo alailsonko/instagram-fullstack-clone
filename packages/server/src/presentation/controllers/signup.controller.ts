@@ -8,6 +8,7 @@ import { Controller } from "./controller.protocol";
 import { UserInputError, AuthenticationError } from "apollo-server";
 import AddAccount from "../../data/usecases/add-account.usecases";
 import { User } from "@prisma/client";
+import AuthToken from "../../infra/services/auth-token.service";
 
 type ResponseUser = O.Omit<User, "password">;
 
@@ -25,8 +26,10 @@ export default class SignUpController
   implements Controller<SignUpResponse, MutationRegisterArgs>
 {
   private addAccount: AddAccount;
-  constructor(addAccount: AddAccount) {
+  private authToken: AuthToken
+  constructor(addAccount: AddAccount, authToken: AuthToken) {
     this.addAccount = addAccount;
+    this.authToken = authToken
   }
   async handle(
     args: O.Optional<MutationRegisterArgs, 'passwordConfirm'>,
@@ -49,13 +52,19 @@ export default class SignUpController
       throw new AuthenticationError("authentication error.");
     }
    delete args.passwordConfirm
-   const response = await this.addAccount.add(Object.assign(args, {
+   const user = await this.addAccount.add(Object.assign(args, {
      createdAt: new Date(),
      updatedAt: new Date(),
    }))
+   const token = await this.authToken.generate({
+     email: user.email,
+     username: user.username,
+     id: user.id,
+     uuid: user.uuid,
+   })
     return {
-      user: response,
-      token: "sometoken",
+      user,
+      token,
     };
   }
 }
