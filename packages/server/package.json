@@ -7,9 +7,9 @@
     "schema": "src/infra/db/prisma/schema.prisma"
   },
   "scripts": {
-    "start": "node --trace-warnings ./dist/src/server.js",
+    "start": "node --trace-warnings ./dist/src/main/server.js",
     "build": "rimraf dist && tsc",
-    "dev:server": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev:server": "ts-node-dev --respawn --transpile-only src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:unit:verbose": "jest --watch -c jest-unit-config.js",
     "test:verbose": "jest --passWithNoTests --runInBand",

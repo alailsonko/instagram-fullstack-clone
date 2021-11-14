@@ -1,8 +1,8 @@
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
-import schema from './main/graphql/schemasMap'
+import schema from './graphql/schemasMap'
 import dotenv from 'dotenv'
-import { ContextGraphQL } from './domain/auth/context'
+import { ContextGraphQL } from '../domain/auth/context'
 
 dotenv.config()
 
