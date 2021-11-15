@@ -12,6 +12,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: any;
+  Upload: any;
 };
 
 export type AuthenticateResponse = {
@@ -20,10 +21,32 @@ export type AuthenticateResponse = {
   user: User;
 };
 
+export type File = {
+  __typename?: 'File';
+  encoding: Scalars['String'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+};
+
+export type Media = {
+  __typename?: 'Media';
+  createdAt: Scalars['Date'];
+  id: Scalars['Int'];
+  updatedAt: Scalars['Date'];
+  url: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
+  createPost: File;
   register: AuthenticateResponse;
+};
+
+
+export type MutationCreatePostArgs = {
+  description: Scalars['String'];
+  file: Array<Maybe<Scalars['Upload']>>;
 };
 
 
@@ -32,6 +55,16 @@ export type MutationRegisterArgs = {
   password: Scalars['String'];
   passwordConfirm: Scalars['String'];
   username: Scalars['String'];
+};
+
+export type Post = {
+  __typename?: 'Post';
+  createdAt: Scalars['Date'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  medias: Array<Maybe<Media>>;
+  updatedAt: Scalars['Date'];
+  user: User;
 };
 
 export type Query = {
@@ -129,10 +162,14 @@ export type ResolversTypes = {
   AuthenticateResponse: ResolverTypeWrapper<AuthenticateResponse>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
+  File: ResolverTypeWrapper<File>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Media: ResolverTypeWrapper<Media>;
   Mutation: ResolverTypeWrapper<{}>;
+  Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Upload: ResolverTypeWrapper<Scalars['Upload']>;
   User: ResolverTypeWrapper<User>;
 };
 
@@ -141,10 +178,14 @@ export type ResolversParentTypes = {
   AuthenticateResponse: AuthenticateResponse;
   Boolean: Scalars['Boolean'];
   Date: Scalars['Date'];
+  File: File;
   Int: Scalars['Int'];
+  Media: Media;
   Mutation: {};
+  Post: Post;
   Query: {};
   String: Scalars['String'];
+  Upload: Scalars['Upload'];
   User: User;
 };
 
@@ -158,15 +199,45 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'Date';
 }
 
+export type FileResolvers<ContextType = any, ParentType extends ResolversParentTypes['File'] = ResolversParentTypes['File']> = {
+  encoding?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  mimetype?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MediaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Media'] = ResolversParentTypes['Media']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createPost?: Resolver<ResolversTypes['File'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'description' | 'file'>>;
   register?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email' | 'password' | 'passwordConfirm' | 'username'>>;
+};
+
+export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  medias?: Resolver<Array<Maybe<ResolversTypes['Media']>>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   login?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'password'>>;
 };
+
+export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload';
+}
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
@@ -181,8 +252,12 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   AuthenticateResponse?: AuthenticateResponseResolvers<ContextType>;
   Date?: GraphQLScalarType;
+  File?: FileResolvers<ContextType>;
+  Media?: MediaResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
 };
 

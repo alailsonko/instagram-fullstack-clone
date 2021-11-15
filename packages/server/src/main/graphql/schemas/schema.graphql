@@ -1,9 +1,28 @@
 type Query {
-  login(username: String, password: String!, email: String): AuthenticateResponse!
+  login(
+    username: String
+    password: String!
+    email: String
+  ): AuthenticateResponse!
 }
 
 type Mutation {
-  register(email: String!, password: String!, passwordConfirm: String!, username: String!): AuthenticateResponse!
+  register(
+    email: String!
+    password: String!
+    passwordConfirm: String!
+    username: String!
+  ): AuthenticateResponse!
+
+  createPost(description: String!, file: [Upload]!): File!
+}
+
+scalar Upload
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
 }
 
 type AuthenticateResponse {
@@ -20,4 +39,20 @@ type User {
   createdAt: Date!
   updatedAt: Date!
   uuid: String!
+}
+
+type Media {
+  id: Int!
+  url: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Post {
+  id: Int!
+  user: User!
+  description: String
+  medias: [Media]!
+  createdAt: Date!
+  updatedAt: Date!
 }

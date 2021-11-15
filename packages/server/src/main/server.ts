@@ -7,6 +7,9 @@ import { SubscriptionServer } from "subscriptions-transport-ws";
 import { execute, subscribe } from "graphql";
 import { createServer } from "http";
 import { PubSub } from 'graphql-subscriptions'
+import {
+  graphqlUploadExpress
+} from 'graphql-upload'
 
 dotenv.config();
 
@@ -14,6 +17,7 @@ const app = express();
 const httpServer = createServer(app);
 
 const server = new ApolloServer({
+  uploads: false, 
   schema,
   plugins: [
     {
@@ -44,6 +48,7 @@ const subscriptionServer = SubscriptionServer.create(
     path: server.graphqlPath,
   }
 );
+app.use(graphqlUploadExpress())
 
 server.applyMiddleware({ app, path: "/graphql" });
 
