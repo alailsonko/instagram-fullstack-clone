@@ -67,12 +67,14 @@
     "express-graphql": "^0.12.0",
     "graphql": "^15.6.0",
     "graphql-relay": "^0.9.0",
+    "graphql-subscriptions": "^2.0.0",
     "graphql-tools": "^7.0.5",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "ncp": "^2.0.0",
     "slugify": "^1.5.3",
+    "subscriptions-transport-ws": "^0.11.0",
     "validator": "^13.6.0"
   }
 }
