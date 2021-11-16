@@ -1,8 +1,8 @@
 import UserRepository from "../repositories/users/users.repositories"
-import AuthToken from "../services/auth-token.service"
+import AuthToken, { JWTResponse } from "../services/auth-token.service"
 
 interface IAuthorization {
-  isLogged(token: string): Promise<boolean>
+  isLogged(token: string): Promise<[boolean , string | JWTResponse | null]>
 }
 
 class Authorization implements IAuthorization {
@@ -12,15 +12,18 @@ class Authorization implements IAuthorization {
     this.userRepository = userRepository,
     this.authToken = authToken
   }
-  async isLogged(token: string): Promise<boolean> {
+  async isLogged(token: string): Promise<[boolean , string | JWTResponse | null]> {
     const decode = await this.authToken.verify(token)
     if(typeof decode === 'string') {
-      return false
+      return [false, decode]
     }
     const user = await this.userRepository.find({
       id: decode.id
     })
-    return user?.id === decode.id
+    if(!user) {
+      return [false, user]
+    }
+    return [user?.id === decode.id, decode]
   }
 }
 
