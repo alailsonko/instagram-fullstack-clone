@@ -14,7 +14,7 @@ type Mutation {
     username: String!
   ): AuthenticateResponse!
 
-  createPost(description: String!, file: [Upload]!): File!
+  createPost(description: String!, file: [Upload]!): Post!
 }
 
 scalar Upload
@@ -44,13 +44,15 @@ type User {
 type Media {
   id: Int!
   url: String!
+  postId: Int
   createdAt: Date!
   updatedAt: Date!
 }
 
 type Post {
   id: Int!
-  user: User!
+  user: User
+  userId: Int
   description: String
   medias: [Media]!
   createdAt: Date!
