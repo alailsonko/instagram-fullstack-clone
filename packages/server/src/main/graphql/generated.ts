@@ -32,6 +32,7 @@ export type Media = {
   __typename?: 'Media';
   createdAt: Scalars['Date'];
   id: Scalars['Int'];
+  postId?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['Date'];
   url: Scalars['String'];
 };
@@ -39,7 +40,7 @@ export type Media = {
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
-  createPost: File;
+  createPost: Post;
   register: AuthenticateResponse;
 };
 
@@ -64,7 +65,8 @@ export type Post = {
   id: Scalars['Int'];
   medias: Array<Maybe<Media>>;
   updatedAt: Scalars['Date'];
-  user: User;
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['Int']>;
 };
 
 export type Query = {
@@ -209,6 +211,7 @@ export type FileResolvers<ContextType = any, ParentType extends ResolversParentT
 export type MediaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Media'] = ResolversParentTypes['Media']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  postId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -216,7 +219,7 @@ export type MediaResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  createPost?: Resolver<ResolversTypes['File'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'description' | 'file'>>;
+  createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'description' | 'file'>>;
   register?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email' | 'password' | 'passwordConfirm' | 'username'>>;
 };
 
@@ -226,7 +229,8 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   medias?: Resolver<Array<Maybe<ResolversTypes['Media']>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
