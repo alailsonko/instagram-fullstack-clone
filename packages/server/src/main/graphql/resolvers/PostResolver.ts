@@ -7,7 +7,7 @@ import fs from "fs";
 import { Prisma } from "@prisma/client";
 import http from "http";
 import AuthToken from "../../../infra/services/auth-token.service";
-import Authorization from "../../../infra/middleware/is-authenticated.middleware";
+import Authorization from "../../../infra/middleware/authorization.middleware";
 import { authorization } from "../../../presentation/factories/middleware/authorization.factory";
 import { ContextGraphQL } from "../../../domain/auth/context";
 import { AuthenticationError } from "apollo-server-express";

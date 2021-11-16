@@ -1,5 +1,5 @@
 import prisma from "../../../infra/db/prisma/prisma.helper"
-import Authorization from "../../../infra/middleware/is-authenticated.middleware"
+import Authorization from "../../../infra/middleware/authorization.middleware"
 import UserRepository from "../../../infra/repositories/users/users.repositories"
 import AuthToken from "../../../infra/services/auth-token.service"
 

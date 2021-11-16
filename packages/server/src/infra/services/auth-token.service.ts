@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto'
 import * as JWT from 'jsonwebtoken'
 
 type Sub = {
@@ -18,6 +19,7 @@ class AuthToken implements IAuthToken {
  async generate(data: Sub): Promise<string> {
       return JWT.sign(data, process.env.JWT_SECRET as string, {
         expiresIn: '1d',
+        jwtid: randomUUID()
       })
   }
   async verify(data: string): Promise<string | JWTResponse> {
