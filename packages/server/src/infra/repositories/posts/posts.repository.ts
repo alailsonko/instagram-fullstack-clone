@@ -9,10 +9,20 @@ class PostRepository {
     return this.prisma.post.create({
       data,
       include: {
-        user: true,
+        user: {
+          select: {
+            createdAt: true,
+            email: true,
+            id: true,
+            password: false,
+            uuid: true,
+            username: true,
+            updatedAt: true,
+          }
+        },
         medias: true,
       },
-    });
+    })
   }
   async find(where: Prisma.PostWhereUniqueInput) {
     return this.prisma.post.findUnique({
