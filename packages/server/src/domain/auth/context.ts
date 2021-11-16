@@ -1,6 +1,6 @@
 import { PubSub } from "graphql-subscriptions";
 
 export interface ContextGraphQL {
-  token: String,
+  token: string,
   pubsub: PubSub
 }
