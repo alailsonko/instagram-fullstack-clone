@@ -11,6 +11,9 @@ import {
   graphqlUploadExpress
 } from 'graphql-upload'
 import path from "path";
+import AuthToken from "../infra/services/auth-token.service";
+import Authorization from "../infra/middleware/authorization.middleware";
+import { makeAuthorization } from "../presentation/factories/middleware/authorization.factory";
 
 dotenv.config();
 
@@ -31,10 +34,12 @@ const server = new ApolloServer({
       },
     },
   ],
-  context: ({ req }: ExpressContext): ContextGraphQL => {
+  context: async ({ req }: ExpressContext): Promise<ContextGraphQL> => {
     const pubsub = new PubSub()
+    const authorization = makeAuthorization()
     const [,token] = req.headers.authorization?.split(' ') ?? "";
-    return { token, pubsub };
+    const [isLogged, user] = await authorization.isLogged(token)
+    return { token, pubsub, isLogged, user };
   },
 });
 
