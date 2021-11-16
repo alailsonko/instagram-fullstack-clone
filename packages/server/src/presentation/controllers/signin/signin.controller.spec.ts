@@ -7,6 +7,7 @@ import ComparePassword from '../../../infra/cryptography/compare-password.crypto
 import UserRepository from '../../../infra/repositories/users/users.repositories'
 import { createMockContext } from '../../../infra/context'
 import AuthToken from '../../../infra/services/auth-token.service'
+import { PubSub } from 'graphql-subscriptions'
 
 describe('SignInController', () => {
   test('should throw error case username and email is missing', async () => {
@@ -24,6 +25,7 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
 
     await expect(
@@ -46,6 +48,7 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
 
     await expect(
@@ -69,6 +72,7 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
 
     await expect(
@@ -101,6 +105,7 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
 
     expect(

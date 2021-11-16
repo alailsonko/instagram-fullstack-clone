@@ -8,6 +8,7 @@ import UserRepository from "../../../infra/repositories/users/users.repositories
 import { createMockContext } from "../../../infra/context";
 import AuthToken from "../../../infra/services/auth-token.service";
 import dotenv from 'dotenv'
+import { PubSub } from "graphql-subscriptions";
 
 dotenv.config()
 
@@ -48,6 +49,7 @@ describe("SignUpController", () => {
     };
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
     await expect(
       async () =>
@@ -66,6 +68,7 @@ describe("SignUpController", () => {
     };
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
     await expect(
       async () =>
@@ -84,6 +87,7 @@ describe("SignUpController", () => {
     };
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
     await expect(
       async () =>
@@ -103,6 +107,7 @@ describe("SignUpController", () => {
 
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
     await expect(
       async () =>
@@ -122,6 +127,7 @@ describe("SignUpController", () => {
 
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
     await expect(
       async () =>
@@ -171,6 +177,7 @@ describe("SignUpController", () => {
 
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
+      pubsub: new PubSub()
     };
     expect(await signupController.handle(fakeUserRegister, fakeContextGraphQL)
     ).toStrictEqual(expectedResponse);
