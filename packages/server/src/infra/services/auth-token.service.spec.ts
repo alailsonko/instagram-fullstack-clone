@@ -6,7 +6,11 @@ dotenv.config();
 jest.mock('./auth-token.service', () => {
   return jest.fn().mockImplementation(()=> {
     return {
-      generate: () => '1234'
+      generate: () => '1234',
+      verify: () => ({
+        id: 1,
+        uuid: '1234-abcd'
+      }),
     }
   })
 })
@@ -21,5 +25,13 @@ describe("AuthToken", () => {
       uuid: "1234-abcd",
     });
     expect(token).toBe("1234");
+  });
+  test("should generate a token", async () => {
+    const authToken = new AuthToken();
+    const decoded = await authToken.verify('1234-abcd');
+    expect(decoded).toStrictEqual({
+      id: 1,
+      uuid: '1234-abcd'
+    })
   });
 });
