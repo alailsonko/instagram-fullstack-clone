@@ -25,7 +25,9 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
-      pubsub: new PubSub()
+      pubsub: new PubSub(),
+      isLogged: false,
+      user: null
     };
 
     await expect(
@@ -48,7 +50,9 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
-      pubsub: new PubSub()
+      pubsub: new PubSub(),
+      isLogged: false,
+      user: null
     };
 
     await expect(
@@ -72,7 +76,9 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
-      pubsub: new PubSub()
+      pubsub: new PubSub(),
+      isLogged: false,
+      user: null
     };
 
     await expect(
@@ -105,7 +111,9 @@ describe('SignInController', () => {
     }
     const fakeContextGraphQL: ContextGraphQL = {
       token: "bearer somtoken",
-      pubsub: new PubSub()
+      pubsub: new PubSub(),
+      isLogged: false,
+      user: null
     };
 
     expect(
