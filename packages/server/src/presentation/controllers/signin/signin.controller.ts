@@ -15,7 +15,7 @@ interface INDEX_ARGS_Signature {
 }
 
 class SignInController
-  implements Controller<AuthenticateResponse, QueryLoginArgs>
+  implements Controller<AuthenticateResponse, QueryLoginArgs, ContextGraphQL>
 {
   private verifyAccount: VerifyAccount;
   private authToken: AuthToken;

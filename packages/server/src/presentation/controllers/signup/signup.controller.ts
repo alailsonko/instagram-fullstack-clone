@@ -21,7 +21,7 @@ interface INDEX_ARGS_Signature {
 }
 
 export default class SignUpController
-  implements Controller<SignUpResponse, MutationRegisterArgs>
+  implements Controller<SignUpResponse, MutationRegisterArgs, ContextGraphQL>
 {
   private addAccount: AddAccount;
   private authToken: AuthToken;
