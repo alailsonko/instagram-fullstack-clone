@@ -10,6 +10,7 @@ import { PubSub } from 'graphql-subscriptions'
 import {
   graphqlUploadExpress
 } from 'graphql-upload'
+import path from "path";
 
 dotenv.config();
 
@@ -32,7 +33,7 @@ const server = new ApolloServer({
   ],
   context: ({ req }: ExpressContext): ContextGraphQL => {
     const pubsub = new PubSub()
-    const token = req.headers.authorization ?? "";
+    const [,token] = req.headers.authorization?.split(' ') ?? "";
     return { token, pubsub };
   },
 });
@@ -49,6 +50,7 @@ const subscriptionServer = SubscriptionServer.create(
   }
 );
 app.use(graphqlUploadExpress())
+app.use(express.static(path.join(__dirname, '..', 'uploads')))
 
 server.applyMiddleware({ app, path: "/graphql" });
 
