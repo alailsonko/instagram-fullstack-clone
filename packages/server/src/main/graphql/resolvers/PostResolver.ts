@@ -6,6 +6,7 @@ import { AuthenticationError } from "apollo-server-express";
 import CreatePostController, { ContextGraphQLogged } from "../../../presentation/controllers/posts/create-post.controller";
 import PostRepository from "../../../infra/repositories/posts/posts.repository";
 import prisma from "../../../infra/db/prisma/prisma.helper";
+import makeCreatePostController from "../../../presentation/factories/controllers/posts/create-post.factory";
 
 export const PostResolvers: IResolvers = {
   Upload: GraphQLUpload,
@@ -18,8 +19,8 @@ export const PostResolvers: IResolvers = {
       if (!ctx.isLogged) {
         throw new AuthenticationError('not authorized')
       }
-      const postRepository = new PostRepository(prisma)
-      return await new CreatePostController(postRepository).handle(args, ctx as ContextGraphQLogged)
+      const createPostController = makeCreatePostController()
+      return await createPostController.handle(args, ctx as ContextGraphQLogged)
     },
   },
 };

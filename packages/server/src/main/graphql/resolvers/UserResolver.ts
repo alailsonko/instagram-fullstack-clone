@@ -5,7 +5,7 @@ import {
 } from '../generated'
 import { SignUpResponse } from '../../../presentation/controllers/signup/signup.controller'
 import makeSignUpController from '../../../presentation/factories/signup.factory'
-import makeSignInController from '../../../presentation/factories/signin.factory'
+import makeSignInController from '../../../presentation/factories/controllers/auth/signin.factory'
 
 export const UserResolvers: IResolvers = {
   Query: {
