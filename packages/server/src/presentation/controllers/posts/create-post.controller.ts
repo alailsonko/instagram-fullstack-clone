@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { FileUpload } from "graphql-upload";
 import path from "path";
-import { finished } from "stream/promises";
 import { ContextGraphQL } from "../../../domain/auth/context";
 import { MutationCreatePostArgs, Post } from "../../../main/graphql/generated";
 import { Controller } from "../controller.protocol";
@@ -41,7 +40,6 @@ class CreatePostController
       const filePath = path.join(__dirname, "src", "uploads/") + fileName;
       const out = fs.createWriteStream(filePath);
       stream.pipe(out);
-      await finished(out);
 
       medias.push({
         url: fileName,

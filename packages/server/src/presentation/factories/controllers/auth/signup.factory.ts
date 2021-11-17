@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import AddAccount from "../../data/usecases/add-account.usecases";
-import HashPassword from "../../infra/cryptography/hash-password.cryptography";
-import prisma from "../../infra/db/prisma/prisma.helper";
-import UserRepository from "../../infra/repositories/users/users.repositories";
-import AuthToken from "../../infra/services/auth-token.service";
-import SignUpController from "../controllers/signup/signup.controller";
+import AddAccount from "../../../../data/usecases/add-account.usecases";
+import HashPassword from "../../../../infra/cryptography/hash-password.cryptography";
+import prisma from "../../../../infra/db/prisma/prisma.helper";
+import UserRepository from "../../../../infra/repositories/users/users.repositories";
+import AuthToken from "../../../../infra/services/auth-token.service";
+import SignUpController from "../../../controllers/signup/signup.controller";
 
 function makeSignUpController() {
   const hashPassword = new HashPassword()

@@ -4,7 +4,7 @@ import {
   QueryLoginArgs
 } from '../generated'
 import { SignUpResponse } from '../../../presentation/controllers/signup/signup.controller'
-import makeSignUpController from '../../../presentation/factories/signup.factory'
+import makeSignUpController from '../../../presentation/factories/controllers/auth/signup.factory'
 import makeSignInController from '../../../presentation/factories/controllers/auth/signin.factory'
 
 export const UserResolvers: IResolvers = {
