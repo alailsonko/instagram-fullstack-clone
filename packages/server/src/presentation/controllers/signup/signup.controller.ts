@@ -69,7 +69,14 @@ export default class SignUpController
       uuid: user.uuid,
     });
     return {
-      user,
+      user: {
+        id: user.id,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        email: user.email,
+        username: user.username,
+        uuid: user.uuid
+      },
       token,
     };
   }

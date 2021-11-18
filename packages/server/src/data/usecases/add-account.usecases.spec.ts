@@ -19,6 +19,7 @@ describe('AddAccount', () => {
       uuid: '1234-1234',
       password: '1234',
       id: 1,
+      lastTimeLogged: '123',
       createdAt: new Date(),
       updatedAt: new Date(),
     }
@@ -27,6 +28,7 @@ describe('AddAccount', () => {
       username: 'valid_username',
       uuid: '1234-1234',
       id: 1,
+      lastTimeLogged: '123',
       createdAt: new Date(),
       updatedAt: new Date(),
     }

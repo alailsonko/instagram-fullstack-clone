@@ -16,6 +16,7 @@ describe("UserRepository", () => {
       email: "valid@mail.com",
       password: "1234abcd",
       username: "valid_mail",
+      lastTimeLogged: '123',
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -31,6 +32,7 @@ describe("UserRepository", () => {
       email: "valid@mail.com",
       password: "1234abcd",
       username: "valid_mail",
+      lastTimeLogged: '123',
       createdAt: new Date(),
       updatedAt: new Date(),
     };

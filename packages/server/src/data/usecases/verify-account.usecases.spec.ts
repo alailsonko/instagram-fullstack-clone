@@ -28,6 +28,7 @@ describe("VerifyAccount", () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       password: "1234",
+      lastTimeLogged: '123',
       username: "valid_username",
     });
     const comparePassword = new ComparePassword();
