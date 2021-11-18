@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import AddAccount from "../../../../data/usecases/add-account.usecases";
 import HashPassword from "../../../../infra/cryptography/hash-password.cryptography";
 import prisma from "../../../../infra/db/prisma/prisma.helper";
