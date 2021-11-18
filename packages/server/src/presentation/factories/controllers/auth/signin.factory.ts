@@ -9,7 +9,7 @@ function makeSignInController() {
   const userRepository = new UserRepository(prisma);
   const comparePassword = new ComparePassword();
   const verifyAccount = new VerifyAccount(userRepository, comparePassword);
-  const authToken = new AuthToken();
+  const authToken = new AuthToken(userRepository);
   return new SignInController(verifyAccount, authToken);
 }
 

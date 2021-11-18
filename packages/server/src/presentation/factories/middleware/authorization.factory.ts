@@ -5,7 +5,7 @@ import AuthToken from "../../../infra/services/auth-token.service"
 
 function makeAuthorization() {
    const userRepository = new UserRepository(prisma)
-   const authToken = new AuthToken()
+   const authToken = new AuthToken(userRepository)
    return new Authorization(userRepository, authToken)
 }
 

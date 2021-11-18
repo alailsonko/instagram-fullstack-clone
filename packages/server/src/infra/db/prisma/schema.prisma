@@ -11,15 +11,16 @@ generator client {
 }
 
 model User {
-  uuid         String         @default(uuid())
-  id           Int            @id @default(autoincrement())
-  username     String         @unique
-  email        String         @unique
-  password     String
-  posts        Post[]
-  createdAt    DateTime       @db.Timestamptz
-  updatedAt    DateTime       @db.Timestamptz
-  likesOnPosts LikesOnPosts[]
+  uuid           String         @default(uuid())
+  id             Int            @id @default(autoincrement())
+  username       String         @unique
+  email          String         @unique
+  password       String
+  posts          Post[]
+  lastTimeLogged String         @default("0")
+  createdAt      DateTime       @db.Timestamptz
+  updatedAt      DateTime       @db.Timestamptz
+  likesOnPosts   LikesOnPosts[]
 }
 
 model Media {

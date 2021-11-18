@@ -53,6 +53,7 @@ class SignInController
       id: user.id,
       uuid: user.uuid,
     });
+
     delete user.password;
     return {
       token,

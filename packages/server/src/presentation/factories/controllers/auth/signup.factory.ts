@@ -9,7 +9,7 @@ function makeSignUpController() {
   const hashPassword = new HashPassword()
   const userRepository = new UserRepository(prisma)
   const addAccount = new AddAccount(hashPassword, userRepository)
-  const authToken = new AuthToken()
+  const authToken = new AuthToken(userRepository)
   return new SignUpController(addAccount, authToken)
 }
 
