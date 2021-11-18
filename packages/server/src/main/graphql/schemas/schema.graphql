@@ -48,6 +48,9 @@ type Media {
   createdAt: Date!
   updatedAt: Date!
 }
+type Subscription {
+  postCreated: Post
+}
 
 type Post {
   id: Int!
