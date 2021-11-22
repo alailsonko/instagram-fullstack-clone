@@ -35,17 +35,25 @@ export type Media = {
   postId?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['Date'];
   url: Scalars['String'];
+  uuid: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
   createPost: Post;
+  getAllPosts: Array<Maybe<Post>>;
   register: AuthenticateResponse;
 };
 
 
 export type MutationCreatePostArgs = {
+  description: Scalars['String'];
+  file: Array<Maybe<Scalars['Upload']>>;
+};
+
+
+export type MutationGetAllPostsArgs = {
   description: Scalars['String'];
   file: Array<Maybe<Scalars['Upload']>>;
 };
@@ -67,6 +75,7 @@ export type Post = {
   updatedAt: Scalars['Date'];
   user?: Maybe<User>;
   userId?: Maybe<Scalars['Int']>;
+  uuid: Scalars['String'];
 };
 
 export type Query = {
@@ -80,6 +89,11 @@ export type QueryLoginArgs = {
   email?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   username?: Maybe<Scalars['String']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  postCreated?: Maybe<Post>;
 };
 
 export type User = {
@@ -171,6 +185,7 @@ export type ResolversTypes = {
   Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   User: ResolverTypeWrapper<User>;
 };
@@ -187,6 +202,7 @@ export type ResolversParentTypes = {
   Post: Post;
   Query: {};
   String: Scalars['String'];
+  Subscription: {};
   Upload: Scalars['Upload'];
   User: User;
 };
@@ -214,12 +230,14 @@ export type MediaResolvers<ContextType = any, ParentType extends ResolversParent
   postId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uuid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'description' | 'file'>>;
+  getAllPosts?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType, RequireFields<MutationGetAllPostsArgs, 'description' | 'file'>>;
   register?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email' | 'password' | 'passwordConfirm' | 'username'>>;
 };
 
@@ -231,12 +249,17 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  uuid?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   login?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'password'>>;
+};
+
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  postCreated?: SubscriptionResolver<Maybe<ResolversTypes['Post']>, "postCreated", ParentType, ContextType>;
 };
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -261,6 +284,7 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
 };

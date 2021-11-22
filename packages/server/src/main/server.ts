@@ -1,6 +1,6 @@
 import { ApolloServer, ExpressContext } from "apollo-server-express";
 import express from "express";
-import schema from "./graphql/schemasMap";
+import schemaOne from "./graphql/schemasMap";
 import dotenv from "dotenv";
 import { ContextGraphQL } from "../domain/auth/context";
 import { SubscriptionServer } from "subscriptions-transport-ws";
@@ -10,6 +10,8 @@ import { PubSub } from "graphql-subscriptions";
 import { graphqlUploadExpress } from "graphql-upload";
 import path from "path";
 import { makeAuthorization } from "../presentation/factories/middleware/authorization.factory";
+import { mergeSchemas } from "graphql-tools";
+import schemeTwo from "./graphql/resolvers/relay.schema";
 
 dotenv.config();
 
@@ -18,7 +20,9 @@ const httpServer = createServer(app);
 
 const server = new ApolloServer({
   uploads: false,
-  schema,
+  schema: mergeSchemas({
+    schemas: [schemaOne, schemeTwo],
+  }),
   subscriptions: {
     onConnect: (connectionParams, webSocket, context) => {
       console.log("Client connected");
@@ -32,8 +36,17 @@ const server = new ApolloServer({
       async serverWillStart() {
         return {
           serverWillStop() {
-            console.log('hello');
-            subscriptionServer.close()
+            console.log("hello");
+            subscriptionServer.close();
+          },
+        };
+      },
+    },
+    {
+      requestDidStart() {
+        return {
+          executionDidStart() {
+            console.log("started");
           },
         };
       },
@@ -50,21 +63,22 @@ const server = new ApolloServer({
 
 const subscriptionServer = SubscriptionServer.create(
   {
-    schema,
+    schema: mergeSchemas({
+      schemas: [schemaOne, schemeTwo],
+    }),
     execute,
     subscribe,
     onConnect: () => {
       return {
-        pubsub: new PubSub()
-      }
-    }
+        pubsub: new PubSub(),
+      };
+    },
   },
   {
     server: httpServer,
     path: server.graphqlPath,
   }
 );
-
 
 app.use(graphqlUploadExpress());
 app.use(express.static(path.join(__dirname, "..", "uploads")));
