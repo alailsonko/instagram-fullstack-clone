@@ -35,7 +35,7 @@ export const MediaType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: (media: Media) => media.id,
     },
-    uuid: globalIdField("Media"),
+    uuid: globalIdField("Media", (post: Post) => post.uuid),
     postId: {
       type: GraphQLInt,
       resolve: (media: Media) => media.postId,
@@ -62,7 +62,7 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLInt),
       resolve: (user: User) => user.id,
     },
-    uuid: globalIdField("User"),
+    uuid: globalIdField("User", (post: Post) => post.uuid),
     username: {
       type: GraphQLNonNull(GraphQLString),
       resolve: (user: User) => user.username,
@@ -93,7 +93,7 @@ export const PostType = new GraphQLObjectType<Post, ContextGraphQL>({
       type: GraphQLInt,
       resolve: (post: Post) => post.userId,
     },
-    uuid: globalIdField("Post"),
+    uuid: globalIdField("Post", (post: Post) => post.uuid),
     description: {
       type: GraphQLString,
       resolve: (post: Post) => post.description,

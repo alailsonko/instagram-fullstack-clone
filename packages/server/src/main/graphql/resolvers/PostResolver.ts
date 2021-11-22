@@ -13,6 +13,8 @@ import {
 } from "graphql-relay";
 import { PostType } from "./schema.types";
 import { GraphQLNonNull, GraphQLObjectType } from "graphql";
+import PostRepository from "../../../infra/repositories/posts/posts.repository";
+import prisma from "../../../infra/db/prisma/prisma.helper";
 
 const pubsub = new PubSub();
 
@@ -32,7 +34,8 @@ export const QueryType = new GraphQLObjectType({
         if (!ctx.isLogged) {
           throw new AuthenticationError("not authorized");
         }
-        return connectionFromArray([{ id: 1, name: "bane" }], args);
+        const response = await new PostRepository(prisma).findAll()
+        return connectionFromArray(response, args);
       },
     },
   }),

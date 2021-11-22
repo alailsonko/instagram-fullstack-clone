@@ -33,6 +33,14 @@ class PostRepository {
       },
     });
   }
+  async findAll() {
+    return this.prisma.post.findMany({
+      include: {
+        user: true,
+        medias: true
+      }
+    })
+  }
   async findMany(where: Prisma.PostWhereInput) {
     return this.prisma.post.findMany({
       where,
