@@ -13,9 +13,6 @@ type Mutation {
     passwordConfirm: String!
     username: String!
   ): AuthenticateResponse!
-
-  createPost(description: String!, file: [Upload]!): Post!
-  getAllPosts(description: String!, file: [Upload]!): [Post]!
 }
 
 scalar Upload
@@ -49,9 +46,6 @@ type Media {
   createdAt: Date!
   updatedAt: Date!
   uuid: ID!
-}
-type Subscription {
-  postCreated: Post
 }
 
 type Post {

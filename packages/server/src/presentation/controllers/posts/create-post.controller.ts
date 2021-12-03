@@ -76,6 +76,7 @@ class CreatePostController
       description: response.description,
       user: response.user,
       userId: response.userId,
+      uuid: response.uuid,
     };
   }
 }

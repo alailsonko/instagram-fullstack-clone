@@ -1,9 +1,10 @@
 import { GraphQLSchema } from 'graphql'
 
-import { QueryType } from './PostResolver'
+import { PostMutation, QueryType } from './PostResolver'
 
 const schema = new GraphQLSchema({
-  query: QueryType
+  query: QueryType,
+  mutation: PostMutation
 })
 
 export default schema
