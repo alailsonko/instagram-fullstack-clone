@@ -6,6 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "baseUrl": "./src",
     "lib": [
       "dom",
       "es2017"
