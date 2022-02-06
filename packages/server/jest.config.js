@@ -3,7 +3,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/**/*.ts',
     '!<rootDir>/src/main/**/*.ts',
-    '!<rootDir>/node_modules',
+    '!<rootDir>/node_modules'
   ],
   coverageDirectory: 'coverage',
   clearMocks: true,
