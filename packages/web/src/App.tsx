@@ -1,9 +1,13 @@
+import { ChakraProvider } from '@chakra-ui/react';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   return (
-    <div>
-       
-    </div>
+    <RecoilRoot>
+      <ChakraProvider>
+        <div>hello</div>
+      </ChakraProvider>
+    </RecoilRoot>
   );
 }
 
