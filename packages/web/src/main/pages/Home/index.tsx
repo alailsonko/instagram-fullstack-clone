@@ -1,5 +1,5 @@
-function Home() {
-  return <div>hello</div>;
-}
+import Login from 'presentation/templates/Login';
 
-export default Home;
+export default function Home() {
+  return <Login />;
+}
