@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { Button } from '@chakra-ui/react';
 import Input from 'infra/components/Forms/Input/ControllableInputs';
-import { Form, FormErrorMessageInput, FormLabelInput } from 'infra/components/Forms/Form';
-import { FC } from 'react';
+import { Form, FormErrorMessageInput } from 'infra/components/Forms/Form';
+import { CSSProperties, FC } from 'react';
 import { LoginFormProps, SubmitLoginHandler } from 'domain/usecases/login';
 
 interface Props {
   onSubmit: SubmitLoginHandler;
 }
 
-const LoginForm: FC<Props> = (props) => {
+const LoginFormBlock: FC<Props> = (props) => {
   const { onSubmit } = props;
   const {
     handleSubmit,
@@ -17,10 +17,18 @@ const LoginForm: FC<Props> = (props) => {
     formState: { errors, isSubmitting }
   } = useForm<LoginFormProps>();
 
+  const stylesInput: CSSProperties = {
+    borderRadius: '0px'
+  };
+
+  const stylesButton: CSSProperties = {
+    borderRadius: '0px',
+    width: '25em'
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Form isInvalid={!!errors.email}>
-        <FormLabelInput htmlFor="email">Email</FormLabelInput>
+      <Form mb={2} isInvalid={!!errors.email}>
         <Input
           id="email"
           placeholder="email"
@@ -28,11 +36,11 @@ const LoginForm: FC<Props> = (props) => {
           register={register('email', {
             required: 'Email is required.'
           })}
+          style={stylesInput}
         />
         <FormErrorMessageInput>{errors.email && errors.email.message}</FormErrorMessageInput>
       </Form>
       <Form isInvalid={!!errors.password}>
-        <FormLabelInput htmlFor="password">Password</FormLabelInput>
         <Input
           id="password"
           placeholder="password"
@@ -44,14 +52,15 @@ const LoginForm: FC<Props> = (props) => {
               message: 'Password must be at least 6 characters.'
             }
           })}
+          style={stylesInput}
         />
         <FormErrorMessageInput>{errors.password && errors.password.message}</FormErrorMessageInput>
       </Form>
-      <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
+      <Button mt={2} style={stylesButton} colorScheme="teal" isLoading={isSubmitting} type="submit">
         Submit
       </Button>
     </form>
   );
 };
 
-export default LoginForm;
+export default LoginFormBlock;

@@ -1,4 +1,4 @@
-import Login from 'presentation/templates/Login';
+import Login from 'presentation/templates/LoginTemplate';
 
 export default function Home() {
   return <Login />;

@@ -6,12 +6,12 @@ export const StackLayout: FC<StackProps> = (props) => {
   return <Stack {...props}>{children}</Stack>;
 };
 
-export const HStackLayout: FC<typeof HStack> = (props) => {
+export const HStackLayout: FC<StackProps> = (props) => {
   const { children } = props;
   return <HStack {...props}>{children}</HStack>;
 };
 
-export const VStackLayout: FC<typeof VStack> = (props) => {
+export const VStackLayout: FC<StackProps> = (props) => {
   const { children } = props;
   return <VStack {...props}>{children}</VStack>;
 };

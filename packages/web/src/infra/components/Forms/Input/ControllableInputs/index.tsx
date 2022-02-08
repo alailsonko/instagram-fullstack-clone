@@ -14,7 +14,7 @@ type InputStyleType = {
 
 const styleInputs: InputStyleType = {
   '1x': {
-    width: '25rem'
+    width: '100%'
   }
 };
 
