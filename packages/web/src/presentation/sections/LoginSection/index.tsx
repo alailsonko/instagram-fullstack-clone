@@ -4,6 +4,7 @@ import { BoxLayout } from 'infra/components/Layout/Box';
 import { HStackLayout } from 'infra/components/Layout/Stack';
 import { CSSProperties } from 'react';
 import { LinkNavigation } from 'infra/components/Navigation/Link';
+import InstagramLogoBlock from 'presentation/blocks/InstagramLogoBlock';
 
 const LoginSection = () => {
   const handleLoginSubmit: SubmitLoginHandler = (data) => {
@@ -24,6 +25,7 @@ const LoginSection = () => {
       borderWidth={1}
       width="30rem"
       height="25rem">
+      <InstagramLogoBlock />
       <LoginFormBlock onSubmit={handleLoginSubmit} />
       <HStackLayout>
         <div style={barStyle} />

@@ -1,11 +1,11 @@
 import { HStackLayout } from 'infra/components/Layout/Stack';
-import LoginBanner from 'presentation/sections/LoginBanner';
+import LoginBannerBlock from 'presentation/blocks/LoginBannerBlock';
 import LoginSection from 'presentation/sections/LoginSection';
 
 const Login = () => {
   return (
     <HStackLayout>
-      <LoginBanner />
+      <LoginBannerBlock />
       <LoginSection />
     </HStackLayout>
   );
