@@ -34,6 +34,7 @@ const LoginSection = () => {
           <div style={barStyle} />
         </HStackLayout>
         <LinkNavigation
+          to="/forgot-password"
           style={{
             justifyContent: 'center'
           }}>
@@ -49,6 +50,7 @@ const LoginSection = () => {
         width="30rem"
         height="4rem">
         <LinkNavigation
+          to="/accounts/emailsignup"
           style={{
             justifyContent: 'center'
           }}>
