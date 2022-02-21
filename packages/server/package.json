@@ -17,7 +17,8 @@
     "test:integration": "yarn test -- --watch -c jest-integration-config.js",
     "test:staged": "yarn test -- --findRelatedTests",
     "test:ci": "yarn test -- --coverage",
-    "codegen": "npx graphql-codegen --config codegen.yml"
+    "codegen": "npx graphql-codegen --config codegen.yml",
+    "dev:migrate": "npx prisma migrate dev"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.2.0",
