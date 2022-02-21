@@ -25,6 +25,8 @@ const ControllableInputs: ComponentWithAs<'input', Props> = (props: Props) => {
       return <Input type="email" {...register} {...styleInputs['1x']} {...props} />;
     case 'password':
       return <Input type="password" {...register} {...styleInputs['1x']} {...props} />;
+    case 'text':
+      return <Input type="text" {...register} {...styleInputs['1x']} {...props} />;
     default:
       return <Input type="submit" {...styleInputs['1x']} {...props} />;
   }
