@@ -8,3 +8,19 @@ export interface SignUpFormProps {
 }
 
 export type SubmitSignUpHandler = SubmitHandler<SignUpFormProps>;
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  uuid: string;
+}
+export interface Register {
+  token: string;
+  user: User;
+}
+export interface SignUpResponse {
+  register: Register;
+}
