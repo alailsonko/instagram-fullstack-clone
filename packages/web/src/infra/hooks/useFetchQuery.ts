@@ -9,11 +9,14 @@ function useFetchQuery<T, R extends object>() {
   const [data, setData] = useState<{ data: R } | null>(null);
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<object | null>(null);
-  const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const dispatchFetch = async (body: GraphqlRequestBodyType<T>) => {
     const response = await request<R>(config.GRAPHQL_ENDPOINT, HTTP_METHODS_ENUM.POST, body)
       .then((responseData) => {
-        setIsSuccessful(true);
+        if (!responseData.data) {
+          throw new Error('No data in response.');
+        }
+        setIsSuccess(true);
         return responseData;
       })
       .catch((errorData) => {
@@ -29,7 +32,7 @@ function useFetchQuery<T, R extends object>() {
     isLoading: isPending,
     data,
     dispatchFetch,
-    isSuccessful,
+    isSuccess,
     isError,
     error
   };
