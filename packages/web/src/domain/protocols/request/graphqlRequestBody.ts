@@ -1,4 +1,4 @@
-type GraphqlRequestBodyType<T> = {
+export type GraphqlRequestBodyType<T> = {
   query: string;
   variables: T;
 };

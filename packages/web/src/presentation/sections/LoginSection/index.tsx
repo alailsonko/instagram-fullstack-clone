@@ -1,14 +1,39 @@
 import LoginFormBlock from 'presentation/blocks/LoginFormBlock';
-import { SubmitLoginHandler } from 'domain/usecases/login';
+import { LoginFormProps, SubmitLoginHandler } from 'domain/usecases/login';
 import { BoxLayout } from 'infra/components/Layout/Box';
 import { HStackLayout, VStackLayout } from 'infra/components/Layout/Stack';
-import { CSSProperties } from 'react';
+import { CSSProperties, useEffect } from 'react';
 import { LinkNavigation } from 'infra/components/Navigation/Link';
 import InstagramLogoBlock from 'presentation/blocks/InstagramLogoBlock';
+import { SignUpResponse } from 'domain/usecases/signup';
+import { graphqlRequestBody } from 'domain/protocols/request/graphqlRequestBody';
+import {
+  signInQuery,
+  signInQueryVariables,
+  SignInQueryVariablesType
+} from 'domain/models/graphql/auth/query/signin';
+import { useFetchQuery } from 'infra/hooks/useFetchQuery';
 
 const LoginSection = () => {
-  const handleLoginSubmit: SubmitLoginHandler = (data) => {
-    console.log('data', data);
+  const {
+    data: dataSignInResponse,
+    isLoading,
+    dispatchFetch,
+    isSuccessful
+  } = useFetchQuery<SignInQueryVariablesType, SignUpResponse>();
+
+  function handleBodyGraphql(data: LoginFormProps) {
+    return graphqlRequestBody(
+      signInQuery,
+      signInQueryVariables({
+        loginEmail: data.email,
+        loginPassword: data.password
+      })
+    );
+  }
+  const handleLoginSubmit: SubmitLoginHandler = async (data) => {
+    const body = handleBodyGraphql(data);
+    await dispatchFetch(body);
   };
   const barStyle: CSSProperties = {
     marginTop: '1rem',
@@ -16,6 +41,7 @@ const LoginSection = () => {
     borderWidth: '1px',
     width: '11.5em'
   };
+
   return (
     <VStackLayout>
       <BoxLayout
