@@ -13,13 +13,18 @@ import {
   SignInQueryVariablesType
 } from 'domain/models/graphql/auth/query/signin';
 import { useFetchQuery } from 'infra/hooks/useFetchQuery';
+import { useToast } from '@chakra-ui/react';
+import { SpinnerFeedback } from 'infra/components/Feedback/Spinner';
 
 const LoginSection = () => {
+  const toast = useToast();
+
   const {
     data: dataSignInResponse,
     isLoading,
     dispatchFetch,
-    isSuccessful
+    isSuccess,
+    isError
   } = useFetchQuery<SignInQueryVariablesType, SignUpResponse>();
 
   function handleBodyGraphql(data: LoginFormProps) {
@@ -34,6 +39,7 @@ const LoginSection = () => {
   const handleLoginSubmit: SubmitLoginHandler = async (data) => {
     const body = handleBodyGraphql(data);
     await dispatchFetch(body);
+    console.log(dataSignInResponse);
   };
   const barStyle: CSSProperties = {
     marginTop: '1rem',
@@ -41,6 +47,27 @@ const LoginSection = () => {
     borderWidth: '1px',
     width: '11.5em'
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: 'Account logged.',
+        description: "We're redirecting you.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true
+      });
+    }
+    if (isError) {
+      toast({
+        title: 'Error while making login.',
+        description: 'Please try again again.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true
+      });
+    }
+  }, [isSuccess, isError]);
 
   return (
     <VStackLayout>
@@ -53,19 +80,33 @@ const LoginSection = () => {
         width="30rem"
         height="25rem">
         <InstagramLogoBlock />
-        <LoginFormBlock onSubmit={handleLoginSubmit} />
-        <HStackLayout>
-          <div style={barStyle} />
-          <span>or</span>
-          <div style={barStyle} />
-        </HStackLayout>
-        <LinkNavigation
-          to="/forgot-password"
-          style={{
-            justifyContent: 'center'
-          }}>
-          Forgot password?
-        </LinkNavigation>
+        {isLoading || isSuccess ? (
+          <SpinnerFeedback
+            alignSelf="center"
+            marginTop="30%"
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        ) : (
+          <>
+            <LoginFormBlock onSubmit={handleLoginSubmit} />
+            <HStackLayout>
+              <div style={barStyle} />
+              <span>or</span>
+              <div style={barStyle} />
+            </HStackLayout>
+            <LinkNavigation
+              to="/forgot-password"
+              style={{
+                justifyContent: 'center'
+              }}>
+              Forgot password?
+            </LinkNavigation>
+          </>
+        )}
       </BoxLayout>
       <BoxLayout
         display="flex"
