@@ -3,7 +3,10 @@ export const request = async <T extends Object>(
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   data: Object,
   headers = {}
-): Promise<{ data: T }> => {
+): Promise<{
+  errors: string | undefined;
+  data: T;
+}> => {
   const response = await fetch(endpoint, {
     method,
     body: JSON.stringify(data),
