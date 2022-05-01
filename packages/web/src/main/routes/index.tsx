@@ -4,7 +4,6 @@ import SignUp from 'main/pages/SignUp';
 import { AnimatePresence } from 'framer-motion';
 
 function RoutesApp() {
-  // const location = useLocation();
   return (
     <BrowserRouter>
       <AnimatePresence exitBeforeEnter>
