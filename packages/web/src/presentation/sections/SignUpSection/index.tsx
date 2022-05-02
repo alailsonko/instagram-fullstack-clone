@@ -43,9 +43,11 @@ const SignUpSection = () => {
   const handleSignUpSubmit: SubmitSignUpHandler = async (data) => {
     return mutateAsync(data)
       .then((response) => {
-        setAuthPersist({
-          data: response.data
-        });
+        setTimeout(() => {
+          setAuthPersist({
+            data: response.data
+          });
+        }, 2000);
         return response;
       })
       .catch((error) => error);

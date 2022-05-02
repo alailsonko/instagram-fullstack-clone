@@ -52,7 +52,9 @@ const LoginSection = () => {
 
   useEffect(() => {
     if (dataSignInResponse) {
-      setAuthPersist(dataSignInResponse);
+      setTimeout(() => {
+        setAuthPersist(dataSignInResponse);
+      }, 2000);
     }
   }, [dataSignInResponse]);
 
