@@ -108,22 +108,24 @@ const LoginSection = () => {
           </>
         )}
       </BoxLayout>
-      <BoxLayout
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        p={4}
-        borderWidth={1}
-        width="30rem"
-        height="4rem">
-        <LinkNavigation
-          to="/accounts/emailsignup"
-          style={{
-            justifyContent: 'center'
-          }}>
-          Sign up
-        </LinkNavigation>
-      </BoxLayout>
+      {!isSuccess && (
+        <BoxLayout
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          p={4}
+          borderWidth={1}
+          width="30rem"
+          height="4rem">
+          <LinkNavigation
+            to="/accounts/emailsignup"
+            style={{
+              justifyContent: 'center'
+            }}>
+            Sign up
+          </LinkNavigation>
+        </BoxLayout>
+      )}
     </VStackLayout>
   );
 };
