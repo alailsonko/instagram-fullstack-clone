@@ -7,6 +7,7 @@ import {
 import { graphqlRequestBody } from 'domain/protocols/request/graphqlRequestBody';
 import { HTTP_METHODS_ENUM } from 'domain/protocols/request/httpMethodsEnum';
 import { SignUpFormProps, SignUpResponse, SubmitSignUpHandler } from 'domain/usecases/signup';
+import { authPersist } from 'infra/auth/jwt';
 import { SpinnerFeedback } from 'infra/components/Feedback/Spinner';
 import { BoxLayout } from 'infra/components/Layout/Box';
 import { VStackLayout } from 'infra/components/Layout/Stack';
@@ -16,32 +17,38 @@ import InstagramLogoBlock from 'presentation/blocks/InstagramLogoBlock';
 import SignUpFormBlock from 'presentation/blocks/SignUpFormBlock';
 import { useEffect } from 'react';
 import { useMutation } from 'react-query';
+import { useSetRecoilState } from 'recoil';
 
 const SignUpSection = () => {
+  const setAuthPersist = useSetRecoilState<{ data: SignUpResponse } | null>(authPersist);
+
   const toast = useToast();
-  const {
-    mutateAsync,
-    isSuccess,
-    isLoading,
-    isError
-    // data: dataMutation
-  } = useMutation(async (data: SignUpFormProps) => {
-    return request<SignUpResponse>(
-      config.GRAPHQL_ENDPOINT,
-      HTTP_METHODS_ENUM.POST,
-      graphqlRequestBody(
-        signUpMutation,
-        signUpMutationVariables({
-          email: data.email,
-          username: data.username,
-          password: data.password,
-          passwordConfirm: data.passwordConfirm
-        })
-      )
-    );
-  });
+  const { mutateAsync, isSuccess, isLoading, isError } = useMutation(
+    async (data: SignUpFormProps) => {
+      return request<SignUpResponse>(
+        config.GRAPHQL_ENDPOINT,
+        HTTP_METHODS_ENUM.POST,
+        graphqlRequestBody(
+          signUpMutation,
+          signUpMutationVariables({
+            email: data.email,
+            username: data.username,
+            password: data.password,
+            passwordConfirm: data.passwordConfirm
+          })
+        )
+      );
+    }
+  );
   const handleSignUpSubmit: SubmitSignUpHandler = async (data) => {
-    return mutateAsync(data);
+    return mutateAsync(data)
+      .then((response) => {
+        setAuthPersist({
+          data: response.data
+        });
+        return response;
+      })
+      .catch((error) => error);
   };
 
   useEffect(() => {

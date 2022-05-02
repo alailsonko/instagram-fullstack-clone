@@ -15,8 +15,11 @@ import {
 import { useFetchQuery } from 'infra/hooks/useFetchQuery';
 import { useToast } from '@chakra-ui/react';
 import { SpinnerFeedback } from 'infra/components/Feedback/Spinner';
+import { authPersist } from 'infra/auth/jwt';
+import { useSetRecoilState } from 'recoil';
 
 const LoginSection = () => {
+  const setAuthPersist = useSetRecoilState<{ data: SignUpResponse } | null>(authPersist);
   const toast = useToast();
 
   const {
@@ -39,7 +42,6 @@ const LoginSection = () => {
   const handleLoginSubmit: SubmitLoginHandler = async (data) => {
     const body = handleBodyGraphql(data);
     await dispatchFetch(body);
-    console.log(dataSignInResponse);
   };
   const barStyle: CSSProperties = {
     marginTop: '1rem',
@@ -47,6 +49,12 @@ const LoginSection = () => {
     borderWidth: '1px',
     width: '11.5em'
   };
+
+  useEffect(() => {
+    if (dataSignInResponse) {
+      setAuthPersist(dataSignInResponse);
+    }
+  }, [dataSignInResponse]);
 
   useEffect(() => {
     if (isSuccess) {
