@@ -62,24 +62,23 @@ const UnprotectedRedirectRoute: FC<Props> = memo(({ children }: Props): ReactEle
 
 const Hello: FC<{}> = () => <div>Hello</div>;
 
+const HomePage: FC<{}> = () => (
+  <>
+    <UnprotectedRoute>
+      <Home />
+    </UnprotectedRoute>
+    <ProtectedRoute>
+      <Hello />
+    </ProtectedRoute>
+  </>
+);
+
 function RoutesApp() {
   return (
     <BrowserRouter>
       <AnimatePresence exitBeforeEnter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <UnprotectedRoute>
-                  <Home />
-                </UnprotectedRoute>
-                <ProtectedRoute>
-                  <Hello />
-                </ProtectedRoute>
-              </>
-            }
-          />
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/accounts/emailsignup"
             element={
