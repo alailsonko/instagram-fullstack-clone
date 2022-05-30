@@ -26,14 +26,14 @@
   "scripts": {
     "start": "yarn run relay && react-scripts start",
     "build": "yarn run relay && react-scripts build",
-    "relay": "npx relay-compiler --src ./src --schema ./schema.graphql",
+    "relay": "npx relay-compiler --src ./src --schema ./src/data/schema.graphql",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "get-graphql-schema": "npx get-graphql-schema http://localhost:3001/graphql > ./src/data/schema.grahpql"
+    "get-graphql-schema": "npx get-graphql-schema http://localhost:3001/graphql > ./src/data/schema.graphql"
   },
   "relay": {
     "src": "./src/",
-    "schema": "./schema.graphql"
+    "schema": "./data/schema.graphql"
   },
   "eslintConfig": {
     "extends": [
