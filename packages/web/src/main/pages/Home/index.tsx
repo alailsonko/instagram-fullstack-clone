@@ -1,10 +1,7 @@
-import HomeLayout from 'presentation/layout/HomeLayout';
-import LoginTemplate from 'presentation/templates/LoginTemplate';
+import React from 'react';
 
-export default function Home() {
-  return (
-    <HomeLayout maxW="8xl" centerContent mt="20">
-      <LoginTemplate />
-    </HomeLayout>
-  );
-}
+const Home = () => {
+  return <div>Home</div>;
+};
+
+export default Home;

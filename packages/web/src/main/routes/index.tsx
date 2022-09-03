@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Login from 'main/pages/Login';
 import Home from 'main/pages/Home';
 import SignUp from 'main/pages/SignUp';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -60,15 +61,13 @@ const UnprotectedRedirectRoute: FC<Props> = memo(({ children }: Props): ReactEle
   return <Animation>{children}</Animation>;
 });
 
-const Hello: FC<{}> = () => <div>Hello</div>;
-
 const HomePage: FC<{}> = () => (
   <>
     <UnprotectedRoute>
-      <Home />
+      <Login />
     </UnprotectedRoute>
     <ProtectedRoute>
-      <Hello />
+      <Home />
     </ProtectedRoute>
   </>
 );
