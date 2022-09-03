@@ -8,7 +8,8 @@
     "mono:web": "yarn workspace @tracking-system/web start",
     "script:web": "yarn workspace @tracking-system/web",
     "script:server": "yarn workspace @tracking-system/server",
-    "mono:dev": "concurrently 'yarn mono:web' 'yarn mono:server'"
+    "mono:dev": "concurrently 'yarn mono:web' 'yarn mono:server'",
+    "docker:up": "cd packages/server && docker compose up"
   },
   "workspaces": {
     "packages": [
