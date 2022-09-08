@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { ReactComponent as IntagramLogoNavBar } from 'presentation/assets/instragram-logo-navbar.svg';
 import Input from 'infra/components/Forms/Input/ControllableInputs';
 import { Icon } from '@chakra-ui/react';
@@ -8,7 +8,15 @@ import { Btn } from 'infra/components/Forms/Button';
 import { HStackLayout } from 'infra/components/Layout/Stack';
 import { BoxLayout } from 'infra/components/Layout/Box';
 
-const NavigationBlock = () => {
+interface Props {
+  handleOnClickHomeBtn?: Function;
+  handleOnClickInboxBtn?: Function;
+  handleOnClickCreatePostBtn?: Function;
+  handleOnClickExplorerBtn?: Function;
+  handleOnClickNotificationsBtn?: Function;
+}
+
+const NavigationBlock: FC<Props> = () => {
   const stylesInput: CSSProperties = {
     borderRadius: '0px'
   };
