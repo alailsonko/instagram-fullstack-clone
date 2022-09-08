@@ -1,11 +1,11 @@
 import React from 'react';
 import HomeLayout from 'presentation/layout/HomeLayout';
-import NavigationBlock from 'presentation/blocks/NavigationBlock';
+import NavigationSection from 'presentation/sections/NavigationSection';
 
 const Home = () => {
   return (
     <HomeLayout maxW="container.xl">
-      <NavigationBlock />
+      <NavigationSection />
     </HomeLayout>
   );
 };

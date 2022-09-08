@@ -11,12 +11,14 @@ import { BoxLayout } from 'infra/components/Layout/Box';
 interface Props {
   handleOnClickHomeBtn?: Function;
   handleOnClickInboxBtn?: Function;
-  handleOnClickCreatePostBtn?: Function;
+  handleOnClickCreatePostBtn: () => any;
   handleOnClickExplorerBtn?: Function;
   handleOnClickNotificationsBtn?: Function;
 }
 
-const NavigationBlock: FC<Props> = () => {
+const NavigationBlock: FC<Props> = (props) => {
+  const { handleOnClickCreatePostBtn } = props;
+
   const stylesInput: CSSProperties = {
     borderRadius: '0px'
   };
@@ -46,7 +48,7 @@ const NavigationBlock: FC<Props> = () => {
         <Btn style={stylesBtnIcon}>
           <Icon w="6" h="6" as={BsCursor} />
         </Btn>
-        <Btn style={stylesBtnIcon}>
+        <Btn onClick={handleOnClickCreatePostBtn} style={stylesBtnIcon}>
           <Icon w="6" h="6" as={AiOutlinePlusSquare} />
         </Btn>
         <Btn style={stylesBtnIcon}>
