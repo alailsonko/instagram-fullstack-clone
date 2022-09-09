@@ -41,7 +41,21 @@ export type Media = {
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
+  createPostType: Post;
+  getAllPostsType: Array<Maybe<Post>>;
   register: AuthenticateResponse;
+};
+
+
+export type MutationCreatePostTypeArgs = {
+  description: Scalars['String'];
+  file: Array<Maybe<Scalars['Upload']>>;
+};
+
+
+export type MutationGetAllPostsTypeArgs = {
+  description: Scalars['String'];
+  file: Array<Maybe<Scalars['Upload']>>;
 };
 
 
@@ -217,6 +231,8 @@ export type MediaResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createPostType?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostTypeArgs, 'description' | 'file'>>;
+  getAllPostsType?: Resolver<Array<Maybe<ResolversTypes['Post']>>, ParentType, ContextType, RequireFields<MutationGetAllPostsTypeArgs, 'description' | 'file'>>;
   register?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email' | 'password' | 'passwordConfirm' | 'username'>>;
 };
 

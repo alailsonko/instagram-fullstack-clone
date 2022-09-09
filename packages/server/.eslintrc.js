@@ -1,13 +1,16 @@
 module.exports = {
   extends: 'standard-with-typescript',
   parserOptions: {
-    project: './tsconfig.json',
+    project: __dirname,
   },
   rules: {
     '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/brace-style': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
+    '@typescript-eslint/consistent-type-assertions': 'off',
     '@typescript-eslint/prefer-readonly': 'off',
     'comma-dangle': [
       2,

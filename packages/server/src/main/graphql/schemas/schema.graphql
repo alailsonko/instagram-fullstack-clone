@@ -1,9 +1,5 @@
 type Query {
-  login(
-    username: String
-    password: String!
-    email: String
-  ): AuthenticateResponse!
+  login(username: String, password: String!, email: String): AuthenticateResponse!
 }
 
 type Mutation {
@@ -13,6 +9,9 @@ type Mutation {
     passwordConfirm: String!
     username: String!
   ): AuthenticateResponse!
+
+  createPostType(description: String!, file: [Upload]!): Post!
+  getAllPostsType(description: String!, file: [Upload]!): [Post]!
 }
 
 scalar Upload
