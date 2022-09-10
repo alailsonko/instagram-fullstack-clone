@@ -81,7 +81,9 @@ const subscriptionServer = SubscriptionServer.create(
 )
 
 app.use(graphqlUploadExpress())
-app.use(express.static(path.join(__dirname, '..', 'uploads')))
+const pathFIleStatic = path.join(__dirname, '..', 'uploads')
+console.log('pathFIleStatic', pathFIleStatic)
+app.use('/static', express.static(pathFIleStatic))
 
 server.applyMiddleware({ app, path: '/graphql' })
 

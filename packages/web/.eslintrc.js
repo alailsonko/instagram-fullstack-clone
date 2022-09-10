@@ -20,6 +20,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'import/no-extraneous-dependencies': 'off',
     'no-unused-vars': 'off',
     'react/no-unused-prop-types': 'off',
     'react/prop-types': 'off',
