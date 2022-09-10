@@ -163,7 +163,7 @@ const NavigationSection: FC = () => {
                 <ModalBodyContainer>
                   <HStackLayout alignItems="start">
                     <BoxLayout>
-                      <Image ref={imgPreviewFileRef} src="" alt="" />
+                      <Image w="xl" h="2xl" ref={imgPreviewFileRef} src="" alt="" />
                     </BoxLayout>
                     <BoxLayout>
                       <VStackLayout>
