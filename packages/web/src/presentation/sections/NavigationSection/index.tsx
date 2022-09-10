@@ -23,10 +23,7 @@ import {
 } from 'infra/components/Modal';
 import NavigationBlock from 'presentation/blocks/NavigationBlock';
 import { FC, useEffect, useRef, useState } from 'react';
-import type {
-  NavigationSectionMutation,
-  NavigationSectionMutation$data
-} from './__generated__/NavigationSectionMutation.graphql';
+import type { NavigationSectionMutation } from './__generated__/NavigationSectionMutation.graphql';
 
 const NavigationSection: FC = () => {
   const [tabIndex, setTabIndex] = useState(0);
