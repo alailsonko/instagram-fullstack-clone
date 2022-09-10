@@ -1,17 +1,11 @@
-import {
-  GraphQLInt,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLString,
-} from "graphql";
-import { GraphQLDate } from "graphql-iso-date";
-import { globalIdField } from "graphql-relay";
-import { ContextGraphQL } from "../../../domain/auth/context";
-import { File, Post, Media, User } from "../generated";
+import { GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql'
+import { GraphQLDate } from 'graphql-iso-date'
+import { globalIdField } from 'graphql-relay'
+import { ContextGraphQL } from '../../../domain/auth/context'
+import { File, Post, Media, User } from '../generated'
 
 export const FileType = new GraphQLObjectType({
-  name: "File",
+  name: 'File',
   fields: () => ({
     filename: {
       type: GraphQLString,
@@ -26,16 +20,16 @@ export const FileType = new GraphQLObjectType({
       resolve: (file: File) => file.encoding,
     },
   }),
-});
+})
 
 export const MediaType = new GraphQLObjectType({
-  name: "Media",
+  name: 'Media',
   fields: () => ({
-    id: {
+    idSerial: {
       type: GraphQLInt,
-      resolve: (media: Media) => media.id,
+      resolve: (media: Media) => media.idSerial,
     },
-    uuid: globalIdField("Media", (post: Post) => post.uuid),
+    id: globalIdField('Media', (post: Post) => post.id),
     postId: {
       type: GraphQLInt,
       resolve: (media: Media) => media.postId,
@@ -53,16 +47,16 @@ export const MediaType = new GraphQLObjectType({
       resolve: (media: Media) => media.updatedAt,
     },
   }),
-});
+})
 
 export const UserType = new GraphQLObjectType({
-  name: "User",
+  name: 'User',
   fields: () => ({
-    id: {
+    idSerial: {
       type: GraphQLNonNull(GraphQLInt),
-      resolve: (user: User) => user.id,
+      resolve: (user: User) => user.idSerial,
     },
-    uuid: globalIdField("User", (post: Post) => post.uuid),
+    id: globalIdField('User', (post: Post) => post.id),
     username: {
       type: GraphQLNonNull(GraphQLString),
       resolve: (user: User) => user.username,
@@ -80,20 +74,20 @@ export const UserType = new GraphQLObjectType({
       resolve: (user: User) => user.updatedAt,
     },
   }),
-});
+})
 
 export const PostType = new GraphQLObjectType<Post, ContextGraphQL>({
-  name: "Post",
+  name: 'Post',
   fields: () => ({
-    id: {
+    idSerial: {
       type: GraphQLNonNull(GraphQLInt),
-      resolve: (post: Post) => post.id,
+      resolve: (post: Post) => post.idSerial,
     },
     userId: {
       type: GraphQLInt,
       resolve: (post: Post) => post.userId,
     },
-    uuid: globalIdField("Post", (post: Post) => post.uuid),
+    id: globalIdField('Post', (post: Post) => post.id),
     description: {
       type: GraphQLString,
       resolve: (post: Post) => post.description,
@@ -115,7 +109,7 @@ export const PostType = new GraphQLObjectType<Post, ContextGraphQL>({
       resolve: (post: Post) => post.updatedAt,
     },
   }),
-});
+})
 
 export const AuthenticateResponseType = new GraphQLObjectType({
   name: 'AuthenticateResponse',
@@ -125,6 +119,6 @@ export const AuthenticateResponseType = new GraphQLObjectType({
     },
     user: {
       type: UserType,
-    }
-  })
+    },
+  }),
 })

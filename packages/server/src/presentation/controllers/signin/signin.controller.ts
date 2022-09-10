@@ -43,8 +43,8 @@ class SignInController implements Controller<AuthenticateResponse, QueryLoginArg
     const token = await this.authToken.generate({
       email: user.email,
       username: user.username,
+      idSerial: user.idSerial,
       id: user.id,
-      uuid: user.uuid,
     })
 
     delete user.password

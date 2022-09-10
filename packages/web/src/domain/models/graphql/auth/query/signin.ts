@@ -2,12 +2,12 @@ export const signInQuery = `query SignIn($loginPassword: String!, $loginEmail: S
   login(password: $loginPassword, email: $loginEmail) {
     token
     user {
-      id
+      idSerial
       username
       email
       createdAt
       updatedAt
-      uuid
+      id
     }
   }
 }`;

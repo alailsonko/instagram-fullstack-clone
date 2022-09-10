@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1d7d1f55a1fba9c9753477b4f021461a>>
+ * @generated SignedSource<<a28d696e9bc33ee51be977d0b1fd99f5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,27 +21,27 @@ export type NavigationSectionMutation$data = {
   readonly createPost: {
     readonly clientMutationId: string | null;
     readonly post: {
-      readonly id: number;
+      readonly idSerial: number;
       readonly user: {
-        readonly id: number;
+        readonly idSerial: number;
         readonly username: string;
         readonly email: string;
         readonly createdAt: any;
         readonly updatedAt: any;
-        readonly uuid: string;
+        readonly id: string;
       } | null;
       readonly userId: number | null;
       readonly description: string | null;
       readonly medias: ReadonlyArray<{
-        readonly id: number;
+        readonly idSerial: number;
         readonly url: string;
         readonly postId: number | null;
         readonly createdAt: any;
         readonly updatedAt: any;
-        readonly uuid: string;
+        readonly id: string;
       } | null>;
       readonly createdAt: any;
-      readonly uuid: string;
+      readonly id: string;
       readonly updatedAt: any;
     } | null;
   } | null;
@@ -63,7 +63,7 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "idSerial",
   "storageKey": null
 },
 v2 = {
@@ -84,7 +84,7 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "uuid",
+  "name": "id",
   "storageKey": null
 },
 v5 = [
@@ -218,16 +218,16 @@ return {
     "selections": (v5/*: any*/)
   },
   "params": {
-    "cacheID": "a3eca78162158cd68da6c9bf750d7d44",
+    "cacheID": "c3242bf75503b951faafbb3215423b48",
     "id": null,
     "metadata": {},
     "name": "NavigationSectionMutation",
     "operationKind": "mutation",
-    "text": "mutation NavigationSectionMutation(\n  $input: CreatePostInput!\n) {\n  createPost(input: $input) {\n    clientMutationId\n    post {\n      id\n      user {\n        id\n        username\n        email\n        createdAt\n        updatedAt\n        uuid\n      }\n      userId\n      description\n      medias {\n        id\n        url\n        postId\n        createdAt\n        updatedAt\n        uuid\n      }\n      createdAt\n      uuid\n      updatedAt\n    }\n  }\n}\n"
+    "text": "mutation NavigationSectionMutation(\n  $input: CreatePostInput!\n) {\n  createPost(input: $input) {\n    clientMutationId\n    post {\n      idSerial\n      user {\n        idSerial\n        username\n        email\n        createdAt\n        updatedAt\n        id\n      }\n      userId\n      description\n      medias {\n        idSerial\n        url\n        postId\n        createdAt\n        updatedAt\n        id\n      }\n      createdAt\n      id\n      updatedAt\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ffbb6305dc99227335ef513bc95183fd";
+(node as any).hash = "111f60ec9cc3e6535bab1e6a56da7804";
 
 export default node;

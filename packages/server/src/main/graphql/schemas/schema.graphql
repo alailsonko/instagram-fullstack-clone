@@ -30,30 +30,30 @@ type AuthenticateResponse {
 scalar Date
 
 type User {
-  id: Int!
+  idSerial: Int!
   username: String!
   email: String!
   createdAt: Date!
   updatedAt: Date!
-  uuid: ID!
+  id: ID!
 }
 
 type Media {
-  id: Int!
+  idSerial: Int!
   url: String!
   postId: Int
   createdAt: Date!
   updatedAt: Date!
-  uuid: ID!
+  id: ID!
 }
 
 type Post {
-  id: Int!
+  idSerial: Int!
   user: User
   userId: Int
   description: String
   medias: [Media]!
   createdAt: Date!
-  uuid: ID!
+  id: ID!
   updatedAt: Date!
 }

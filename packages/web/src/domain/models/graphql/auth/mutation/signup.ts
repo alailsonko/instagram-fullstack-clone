@@ -2,12 +2,12 @@ export const signUpMutation = `mutation signUp($email: String!, $password: Strin
   register(email: $email, password: $password, passwordConfirm: $passwordConfirm, username: $username) {
     token
     user {
-      id
+      idSerial
       username
       email
       createdAt
       updatedAt
-      uuid
+      id
     }
   }
 }`;

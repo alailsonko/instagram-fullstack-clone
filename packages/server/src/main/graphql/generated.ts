@@ -31,11 +31,11 @@ export type File = {
 export type Media = {
   __typename?: 'Media';
   createdAt: Scalars['Date'];
-  id: Scalars['Int'];
+  id: Scalars['ID'];
+  idSerial: Scalars['Int'];
   postId?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['Date'];
   url: Scalars['String'];
-  uuid: Scalars['ID'];
 };
 
 export type Mutation = {
@@ -70,12 +70,12 @@ export type Post = {
   __typename?: 'Post';
   createdAt: Scalars['Date'];
   description?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
+  id: Scalars['ID'];
+  idSerial: Scalars['Int'];
   medias: Array<Maybe<Media>>;
   updatedAt: Scalars['Date'];
   user?: Maybe<User>;
   userId?: Maybe<Scalars['Int']>;
-  uuid: Scalars['ID'];
 };
 
 export type Query = {
@@ -95,10 +95,10 @@ export type User = {
   __typename?: 'User';
   createdAt: Scalars['Date'];
   email: Scalars['String'];
-  id: Scalars['Int'];
+  id: Scalars['ID'];
+  idSerial: Scalars['Int'];
   updatedAt: Scalars['Date'];
   username: Scalars['String'];
-  uuid: Scalars['ID'];
 };
 
 
@@ -221,11 +221,11 @@ export type FileResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type MediaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Media'] = ResolversParentTypes['Media']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  idSerial?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   postId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -239,12 +239,12 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  idSerial?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   medias?: Resolver<Array<Maybe<ResolversTypes['Media']>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -260,10 +260,10 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  idSerial?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

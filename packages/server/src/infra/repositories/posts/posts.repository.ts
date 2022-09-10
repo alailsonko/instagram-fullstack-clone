@@ -1,9 +1,9 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from '@prisma/client'
 
 class PostRepository {
-  private prisma: PrismaClient;
+  private prisma: PrismaClient
   constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
+    this.prisma = prisma
   }
   async create(data: Prisma.PostCreateInput) {
     return this.prisma.post.create({
@@ -13,12 +13,12 @@ class PostRepository {
           select: {
             createdAt: true,
             email: true,
-            id: true,
+            idSerial: true,
             password: false,
-            uuid: true,
+            id: true,
             username: true,
             updatedAt: true,
-          }
+          },
         },
         medias: true,
       },
@@ -31,14 +31,14 @@ class PostRepository {
         medias: true,
         user: true,
       },
-    });
+    })
   }
   async findAll() {
     return this.prisma.post.findMany({
       include: {
         user: true,
-        medias: true
-      }
+        medias: true,
+      },
     })
   }
   async findMany(where: Prisma.PostWhereInput) {
@@ -46,10 +46,10 @@ class PostRepository {
       where,
       include: {
         user: true,
-        medias: true
-      }
+        medias: true,
+      },
     })
   }
 }
 
-export default PostRepository;
+export default PostRepository

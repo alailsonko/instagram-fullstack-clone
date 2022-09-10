@@ -18,7 +18,8 @@ interface INDEX_ARGS_Signature {
 }
 
 export default class SignUpController
-implements Controller<SignUpResponse, MutationRegisterArgs, ContextGraphQL> {
+  implements Controller<SignUpResponse, MutationRegisterArgs, ContextGraphQL>
+{
   private addAccount: AddAccount
   private authToken: AuthToken
   constructor(addAccount: AddAccount, authToken: AuthToken) {
@@ -62,17 +63,17 @@ implements Controller<SignUpResponse, MutationRegisterArgs, ContextGraphQL> {
     const token = await this.authToken.generate({
       email: user.email,
       username: user.username,
+      idSerial: user.idSerial,
       id: user.id,
-      uuid: user.uuid,
     })
     return {
       user: {
-        id: user.id,
+        idSerial: user.idSerial,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
         email: user.email,
         username: user.username,
-        uuid: user.uuid,
+        id: user.id,
       },
       token,
     }

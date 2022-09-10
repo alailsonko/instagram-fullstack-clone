@@ -6,7 +6,8 @@ import {
   TabPanels,
   Tabs,
   Textarea,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react';
 import { useMutation } from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
@@ -22,10 +23,14 @@ import {
 } from 'infra/components/Modal';
 import NavigationBlock from 'presentation/blocks/NavigationBlock';
 import { FC, useEffect, useRef, useState } from 'react';
-import type { NavigationSectionMutation } from './__generated__/NavigationSectionMutation.graphql';
+import type {
+  NavigationSectionMutation,
+  NavigationSectionMutation$data
+} from './__generated__/NavigationSectionMutation.graphql';
 
 const NavigationSection: FC = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const toast = useToast();
   const inputFileRef = useRef<HTMLInputElement>(null);
   const inputDescriptionRef = useRef<HTMLTextAreaElement>(null);
   const imgPreviewFileRef = useRef<HTMLImageElement>(null);
@@ -36,34 +41,34 @@ const NavigationSection: FC = () => {
       createPost(input: $input) {
         clientMutationId
         post {
-          id
+          idSerial
           user {
-            id
+            idSerial
             username
             email
             createdAt
             updatedAt
-            uuid
+            id
           }
           userId
           description
           medias {
-            id
+            idSerial
             url
             postId
             createdAt
             updatedAt
-            uuid
+            id
           }
           createdAt
-          uuid
+          id
           updatedAt
         }
       }
     }
   `;
 
-  const [commitMutation, isMutationInPost] =
+  const [commitCreatePostMutation, isMutationInPost] =
     useMutation<NavigationSectionMutation>(CREATE_POST_GRAPHQL);
 
   const handleCreatePostClick = () => {
@@ -93,13 +98,25 @@ const NavigationSection: FC = () => {
 
   const handlePublishBtn = () => {
     if (inputDescriptionRef.current && inputFileRef.current && inputFileRef.current.files) {
-      console.log('inputDescriptionRef.current', inputDescriptionRef.current.value);
-      console.log('inputFileRef.current.files', inputFileRef.current.files);
       const inputFiles: any = { ...inputFileRef.current.files };
-      console.log('inputFileRef.current.files', inputFiles);
-
       const inputDescription = inputDescriptionRef.current.value;
-      const response = commitMutation({
+
+      commitCreatePostMutation({
+        onCompleted(response, errors) {
+          if (!errors?.length) {
+            toast({
+              title: 'Post created.',
+              description: 'Post created successfully.',
+              status: 'success',
+              duration: 9000,
+              isClosable: true
+            });
+            onClose();
+          }
+        },
+        onError(error) {
+          console.log('error', error);
+        },
         uploadables: {
           file: inputFiles
         },
@@ -110,7 +127,6 @@ const NavigationSection: FC = () => {
           }
         }
       });
-      console.log('response', response);
     }
   };
 

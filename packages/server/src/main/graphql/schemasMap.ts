@@ -8,7 +8,7 @@ import { merge } from 'lodash'
 
 const schema: GraphQLSchema = makeExecutableSchema({
   typeDefs: merge(emptyTypeDefs, UserTypeDefs),
-  resolvers
+  resolvers,
 })
 
 export default schema

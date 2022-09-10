@@ -10,12 +10,12 @@ export interface SignUpFormProps {
 export type SubmitSignUpHandler = SubmitHandler<SignUpFormProps>;
 
 export interface User {
-  id: number;
+  idSerial: number;
   username: string;
   email: string;
   createdAt: Date;
   updatedAt: Date;
-  uuid: string;
+  id: string;
 }
 export interface Register {
   token: string;

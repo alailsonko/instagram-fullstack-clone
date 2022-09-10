@@ -31,7 +31,7 @@ class CreatePostController
     }
 
     for await (const file of files) {
-      const { createReadStream, filename: fn } = file
+      const { createReadStream, filename: fn, mimetype, encoding } = file
       const stream = createReadStream()
       const dirname = path.resolve()
       const fileName = `${+new Date()}_${fn.split(' ').join('')}`
@@ -61,7 +61,7 @@ class CreatePostController
       },
       user: {
         connect: {
-          id: ctx.user.id,
+          idSerial: ctx.user.idSerial,
         },
       },
     })
@@ -69,12 +69,12 @@ class CreatePostController
     return {
       createdAt: response.createdAt,
       updatedAt: response.updatedAt,
-      id: response.id,
+      idSerial: response.idSerial,
       medias: response.medias,
       description: response.description,
       user: response.user,
       userId: response.userId,
-      uuid: response.uuid,
+      id: response.id,
     }
   }
 }
