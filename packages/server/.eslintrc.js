@@ -1,7 +1,8 @@
 module.exports = {
   extends: 'standard-with-typescript',
   parserOptions: {
-    project: __dirname,
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
   },
   rules: {
     '@typescript-eslint/restrict-template-expressions': 'off',
