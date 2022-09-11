@@ -31,7 +31,7 @@ class CreatePostController
     }
 
     for await (const file of files) {
-      const { createReadStream, filename: fn, mimetype, encoding } = file
+      const { createReadStream, filename: fn } = file
       const stream = createReadStream()
       const dirname = path.resolve()
       const fileName = `${+new Date()}_${fn.split(' ').join('')}`
