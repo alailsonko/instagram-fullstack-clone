@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FC, memo, ReactElement } from 'react';
 import { useRecoilValue } from 'recoil';
 import { authPersist } from 'infra/auth/jwt';
+import Profile from 'main/pages/Profile';
 
 interface Props {
   children: ReactElement;
@@ -72,12 +73,19 @@ const HomePage: FC<{}> = () => (
   </>
 );
 
+const ProfilePage: FC<{}> = () => (
+  <ProtectedRoute>
+    <Profile />
+  </ProtectedRoute>
+);
+
 function RoutesApp() {
   return (
     <BrowserRouter>
       <AnimatePresence exitBeforeEnter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/:slug" element={<ProfilePage />} />
           <Route
             path="/accounts/emailsignup"
             element={

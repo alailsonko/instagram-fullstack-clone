@@ -17,6 +17,8 @@ model User {
   email          String         @unique
   password       String
   posts          Post[]
+  avatar      Media?    @relation(fields: [avatarId], references: [idSerial], onDelete: Cascade, onUpdate: Cascade)
+  avatarId    Int?
   lastTimeLogged String         @default("0")
   createdAt      DateTime       @db.Timestamptz
   updatedAt      DateTime       @db.Timestamptz
@@ -29,6 +31,7 @@ model Media {
   url       String
   post      Post?    @relation(fields: [postId], references: [idSerial], onDelete: Cascade, onUpdate: Cascade)
   postId    Int?
+  user User[]
   createdAt DateTime @db.Timestamptz
   updatedAt DateTime @db.Timestamptz
 }

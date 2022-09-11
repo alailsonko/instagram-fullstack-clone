@@ -1,7 +1,7 @@
 import React, { CSSProperties, FC } from 'react';
 import { ReactComponent as IntagramLogoNavBar } from 'presentation/assets/instragram-logo-navbar.svg';
 import Input from 'infra/components/Forms/Input/ControllableInputs';
-import { Icon } from '@chakra-ui/react';
+import { Avatar, Icon } from '@chakra-ui/react';
 import { AiFillHome, AiOutlinePlusSquare, AiOutlineHeart } from 'react-icons/ai';
 import { BsCursor, BsGeo } from 'react-icons/bs';
 import { Btn } from 'infra/components/Forms/Button';
@@ -19,12 +19,20 @@ interface Props {
 const NavigationBlock: FC<Props> = (props) => {
   const { handleOnClickCreatePostBtn } = props;
 
+  const commonStyle: CSSProperties = {
+    padding: '0',
+    borderRadius: '50%'
+  };
+
   const stylesInput: CSSProperties = {
     borderRadius: '0px'
   };
+
   const stylesBtnIcon: CSSProperties = {
+    ...commonStyle,
     marginRight: '2.5pt'
   };
+
   return (
     <HStackLayout marginTop="2.5" justifyContent="space-between" className="navbar-container">
       <BoxLayout>
@@ -54,8 +62,11 @@ const NavigationBlock: FC<Props> = (props) => {
         <Btn style={stylesBtnIcon}>
           <Icon w="6" h="6" as={BsGeo} />
         </Btn>
-        <Btn>
+        <Btn style={stylesBtnIcon}>
           <Icon w="6" h="6" as={AiOutlineHeart} />
+        </Btn>
+        <Btn style={commonStyle}>
+          <Avatar src="https://bit.ly/broken-link" />
         </Btn>
       </BoxLayout>
     </HStackLayout>
