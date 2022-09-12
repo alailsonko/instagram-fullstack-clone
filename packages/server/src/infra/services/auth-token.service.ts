@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { randomUUID } from 'crypto'
 import * as JWT from 'jsonwebtoken'
 import UserRepository from '../repositories/users/users.repositories'
 import { isBefore } from 'date-fns'
 import { AuthenticationError } from 'apollo-server'
 
-type Sub = {
+interface Sub {
   idSerial: number
   email: string
   username: string
@@ -14,8 +15,8 @@ type Sub = {
 export type JWTResponse = Sub & JWT.JwtPayload
 
 interface IAuthToken {
-  generate(data: object): Promise<string>
-  verify(data: string): Promise<string | JWTResponse>
+  generate: (data: Sub) => Promise<string>
+  verify: (data: string) => Promise<string | JWTResponse>
 }
 
 class AuthToken implements IAuthToken {
@@ -23,9 +24,10 @@ class AuthToken implements IAuthToken {
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository
   }
+
   async generate(data: Sub): Promise<string> {
     const timestamp = +new Date()
-    this.userRepository.update(
+    await this.userRepository.update(
       {
         idSerial: data.idSerial,
       },
@@ -38,6 +40,7 @@ class AuthToken implements IAuthToken {
       jwtid: `${timestamp}.${randomUUID()}`,
     })
   }
+
   async verify(data: string): Promise<string | JWTResponse> {
     try {
       const response = JWT.verify(data, process.env.JWT_SECRET as string) as JWTResponse | string

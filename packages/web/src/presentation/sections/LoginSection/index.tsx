@@ -5,7 +5,7 @@ import { HStackLayout, VStackLayout } from 'infra/components/Layout/Stack';
 import { CSSProperties, useEffect } from 'react';
 import { LinkNavigation } from 'infra/components/Navigation/Link';
 import InstagramLogoBlock from 'presentation/blocks/InstagramLogoBlock';
-import { SignUpResponse } from 'domain/usecases/signup';
+import { Login, SignInResponse, SignUpResponse } from 'domain/usecases/signup';
 import { graphqlRequestBody } from 'domain/protocols/request/graphqlRequestBody';
 import {
   signInQuery,
@@ -19,7 +19,7 @@ import { authPersist } from 'infra/auth/jwt';
 import { useSetRecoilState } from 'recoil';
 
 const LoginSection = () => {
-  const setAuthPersist = useSetRecoilState<{ data: SignUpResponse } | null>(authPersist);
+  const setAuthPersist = useSetRecoilState<{ data: Login } | null>(authPersist);
   const toast = useToast();
 
   const {
@@ -28,7 +28,7 @@ const LoginSection = () => {
     dispatchFetch,
     isSuccess,
     isError
-  } = useFetchQuery<SignInQueryVariablesType, SignUpResponse>();
+  } = useFetchQuery<SignInQueryVariablesType, SignInResponse>();
 
   function handleBodyGraphql(data: LoginFormProps) {
     return graphqlRequestBody(
@@ -52,9 +52,7 @@ const LoginSection = () => {
 
   useEffect(() => {
     if (dataSignInResponse) {
-      setTimeout(() => {
-        setAuthPersist(dataSignInResponse);
-      }, 2000);
+      setAuthPersist({ data: dataSignInResponse.data.login });
     }
   }, [dataSignInResponse]);
 

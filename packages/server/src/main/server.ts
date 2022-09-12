@@ -55,7 +55,7 @@ const server = new ApolloServer({
   context: async ({ req }: ExpressContext): Promise<ContextGraphQL> => {
     const pubsub = new PubSub()
     const authorization = makeAuthorization()
-    const [, token] = req.headers.authorization?.split(' ') ?? ''
+    const [, token] = req.headers.authorization?.split(' ') ?? ['', '']
     const [isLogged, user] = await authorization.isLogged(token)
     return { token, pubsub, isLogged, user }
   },

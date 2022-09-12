@@ -1,5 +1,6 @@
 type Query {
   login(username: String, password: String!, email: String): AuthenticateResponse!
+  getProfileBySlug(username: String): User!
 }
 
 type Mutation {
@@ -35,6 +36,8 @@ type User {
   email: String!
   createdAt: Date!
   updatedAt: Date!
+  avatar: Media
+  avatarId: Int
   id: ID!
 }
 

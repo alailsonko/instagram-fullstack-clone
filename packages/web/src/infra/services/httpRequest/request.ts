@@ -28,7 +28,7 @@ async function fetchQuery(operation: any, variables: any, cacheConfig: any, uplo
   const requestBuild: any = {
     method: 'POST',
     headers: {
-      Authorization: `bearer ${getToken.auth.data.register.token}`
+      Authorization: `bearer ${getToken.auth.data.token}`
     }
   };
 

@@ -1,5 +1,5 @@
 import { ContextGraphQL } from '../../domain/auth/context'
 
-export interface Controller<T, K, X> {
-  handle: (req: K, res: X) => Promise<T>
+export interface Controller<TReturn, KRequest, XResponse> {
+  handle: (req: KRequest, res: XResponse) => Promise<TReturn>
 }

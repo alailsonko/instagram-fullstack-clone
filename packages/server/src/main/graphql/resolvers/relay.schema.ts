@@ -4,7 +4,7 @@ import { PostMutation, QueryType } from './PostResolver'
 
 const schema = new GraphQLSchema({
   query: QueryType,
-  mutation: PostMutation
+  mutation: PostMutation,
 })
 
 export default schema

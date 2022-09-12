@@ -27,6 +27,7 @@ function useFetchQuery<T, R extends object>() {
     startTransition(() => {
       setData(response);
     });
+    return response;
   };
   return {
     isLoading: isPending,

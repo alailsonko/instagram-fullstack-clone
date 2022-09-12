@@ -62,16 +62,17 @@ const UnprotectedRedirectRoute: FC<Props> = memo(({ children }: Props): ReactEle
   return <Animation>{children}</Animation>;
 });
 
-const HomePage: FC<{}> = () => (
-  <>
-    <UnprotectedRoute>
-      <Login />
-    </UnprotectedRoute>
+const HomePage: FC<{}> = () => {
+  const isAuthenticated = useRecoilValue(authPersist);
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+  return (
     <ProtectedRoute>
       <Home />
     </ProtectedRoute>
-  </>
-);
+  );
+};
 
 const ProfilePage: FC<{}> = () => (
   <ProtectedRoute>
@@ -91,6 +92,14 @@ function RoutesApp() {
             element={
               <UnprotectedRedirectRoute>
                 <SignUp />
+              </UnprotectedRedirectRoute>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <UnprotectedRedirectRoute>
+                <Login />
               </UnprotectedRedirectRoute>
             }
           />

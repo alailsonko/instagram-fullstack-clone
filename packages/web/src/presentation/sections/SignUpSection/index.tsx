@@ -6,7 +6,12 @@ import {
 } from 'domain/models/graphql/auth/mutation/signup';
 import { graphqlRequestBody } from 'domain/protocols/request/graphqlRequestBody';
 import { HTTP_METHODS_ENUM } from 'domain/protocols/request/httpMethodsEnum';
-import { SignUpFormProps, SignUpResponse, SubmitSignUpHandler } from 'domain/usecases/signup';
+import {
+  Register,
+  SignUpFormProps,
+  SignUpResponse,
+  SubmitSignUpHandler
+} from 'domain/usecases/signup';
 import { authPersist } from 'infra/auth/jwt';
 import { SpinnerFeedback } from 'infra/components/Feedback/Spinner';
 import { BoxLayout } from 'infra/components/Layout/Box';
@@ -20,7 +25,7 @@ import { useMutation } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 
 const SignUpSection = () => {
-  const setAuthPersist = useSetRecoilState<{ data: SignUpResponse } | null>(authPersist);
+  const setAuthPersist = useSetRecoilState<{ data: Register } | null>(authPersist);
 
   const toast = useToast();
   const { mutateAsync, isSuccess, isLoading, isError } = useMutation(
@@ -45,7 +50,7 @@ const SignUpSection = () => {
       .then((response) => {
         setTimeout(() => {
           setAuthPersist({
-            data: response.data
+            data: response.data.register
           });
         }, 2000);
         return response;

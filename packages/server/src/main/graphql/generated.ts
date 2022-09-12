@@ -81,7 +81,13 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   _empty?: Maybe<Scalars['String']>;
+  getProfileBySlug: User;
   login: AuthenticateResponse;
+};
+
+
+export type QueryGetProfileBySlugArgs = {
+  username?: Maybe<Scalars['String']>;
 };
 
 
@@ -93,6 +99,8 @@ export type QueryLoginArgs = {
 
 export type User = {
   __typename?: 'User';
+  avatar?: Maybe<Media>;
+  avatarId?: Maybe<Scalars['Int']>;
   createdAt: Scalars['Date'];
   email: Scalars['String'];
   id: Scalars['ID'];
@@ -250,6 +258,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  getProfileBySlug?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryGetProfileBySlugArgs, never>>;
   login?: Resolver<ResolversTypes['AuthenticateResponse'], ParentType, ContextType, RequireFields<QueryLoginArgs, 'password'>>;
 };
 
@@ -258,6 +267,8 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 }
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  avatar?: Resolver<Maybe<ResolversTypes['Media']>, ParentType, ContextType>;
+  avatarId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;

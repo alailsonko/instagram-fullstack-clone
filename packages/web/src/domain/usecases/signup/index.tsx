@@ -21,6 +21,16 @@ export interface Register {
   token: string;
   user: User;
 }
+
+export interface Login {
+  token: string;
+  user: User;
+}
+
 export interface SignUpResponse {
   register: Register;
+}
+
+export interface SignInResponse {
+  login: Login;
 }

@@ -53,7 +53,6 @@ type Props = {
 
 const PostsList: FC<Props> = (props) => {
   const { initialQueryRef } = props;
-  const Posts = [1, 2, 3, 4, 5, 6, 7];
   const cardPostCss: CSSProperties = {
     borderStyle: 'solid',
     borderWidth: '1pt',
@@ -64,7 +63,7 @@ const PostsList: FC<Props> = (props) => {
     borderWidth: '1pt'
   };
   const data = usePreloadedQuery<PostsTimelineSectionQuery>(GET_ALL_POSTS, initialQueryRef);
-  console.log('data', data);
+
   return (
     <>
       {data.posts.edges?.map((item, index) => (
