@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Prisma, PrismaClient } from '@prisma/client'
 
 class PostRepository {
@@ -5,8 +6,9 @@ class PostRepository {
   constructor(prisma: PrismaClient) {
     this.prisma = prisma
   }
+
   async create(data: Prisma.PostCreateInput) {
-    return this.prisma.post.create({
+    return await this.prisma.post.create({
       data,
       include: {
         user: {
@@ -24,8 +26,9 @@ class PostRepository {
       },
     })
   }
+
   async find(where: Prisma.PostWhereUniqueInput) {
-    return this.prisma.post.findUnique({
+    return await this.prisma.post.findUnique({
       where,
       include: {
         medias: true,
@@ -33,16 +36,18 @@ class PostRepository {
       },
     })
   }
+
   async findAll() {
-    return this.prisma.post.findMany({
+    return await this.prisma.post.findMany({
       include: {
         user: true,
         medias: true,
       },
     })
   }
+
   async findMany(where: Prisma.PostWhereInput) {
-    return this.prisma.post.findMany({
+    return await this.prisma.post.findMany({
       where,
       include: {
         user: true,

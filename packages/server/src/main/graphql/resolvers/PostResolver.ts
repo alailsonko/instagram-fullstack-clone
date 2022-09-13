@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MutationCreatePostTypeArgs } from '../generated'
 import { GraphQLUpload } from 'graphql-upload'
 import { ContextGraphQL } from '../../../domain/auth/context'
@@ -31,6 +32,23 @@ export const QueryType = new GraphQLObjectType({
           throw new AuthenticationError('not authorized')
         }
         const response = await new PostRepository(prisma).findAll()
+        return connectionFromArray(response, args)
+      },
+    },
+    getPostsBySlug: {
+      type: GraphQLNonNull(PostConnection),
+      args: {
+        ...connectionArgs,
+        username: {
+          type: GraphQLString,
+        },
+      },
+      resolve: async (_, args, ctx: ContextGraphQL) => {
+        const response = await new PostRepository(prisma).findMany({
+          user: {
+            username: args.username,
+          },
+        })
         return connectionFromArray(response, args)
       },
     },
