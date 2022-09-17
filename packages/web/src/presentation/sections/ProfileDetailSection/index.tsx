@@ -1,7 +1,24 @@
-import React, { FC, useEffect } from 'react';
+/* eslint-disable react/jsx-no-useless-fragment */
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { HStackLayout, VStackLayout } from 'infra/components/Layout/Stack';
 import { BoxLayout } from 'infra/components/Layout/Box';
-import { Avatar, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react';
+import {
+  Avatar,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure
+} from '@chakra-ui/react';
 import { Btn } from 'infra/components/Forms/Button';
 import { useFetchQuery } from 'infra/hooks/useFetchQuery';
 import { GetProfileBySlugResponse } from 'domain/usecases/getProfileBySlug';
@@ -13,7 +30,11 @@ import {
 } from 'domain/models/graphql/users/query/getProfileBySlug';
 import { useParams } from 'react-router-dom';
 import { PreloadedQuery, usePreloadedQuery, useQueryLoader } from 'react-relay';
-import { ProfileDetailSectionQuery } from './__generated__/ProfileDetailSectionQuery.graphql';
+import { Object } from 'ts-toolbelt';
+import {
+  ProfileDetailSectionQuery,
+  ProfileDetailSectionQuery$data
+} from './__generated__/ProfileDetailSectionQuery.graphql';
 
 const GET_POSTS_BY_SLUG = graphql`
   query ProfileDetailSectionQuery(
@@ -79,20 +100,88 @@ const GET_POSTS_BY_SLUG = graphql`
 type Props = {
   initialQueryRef: PreloadedQuery<ProfileDetailSectionQuery>;
 };
+type PostDataType = Object.Path<ProfileDetailSectionQuery$data, ['getPostsBySlug', 'edges', '0']>;
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  handleGetNextPost: () => void;
+  handleGetPreviousPost: () => void;
+  postData: PostDataType;
+}
+
+const VerticallyCenterModal: FC<ModalProps> = (props) => {
+  const { isOpen, onClose, postData, handleGetNextPost, handleGetPreviousPost } = props;
+  if (!postData) {
+    return <></>;
+  }
+  return (
+    <Modal size="6xl" onClose={onClose} isOpen={isOpen} isCentered>
+      <ModalOverlay>
+        <ModalContent position="relative" display="flex" flexDirection="row" alignItems="center">
+          <Btn onClick={handleGetPreviousPost} right="100%" position="absolute">
+            Previous
+          </Btn>
+          <ModalCloseButton />
+          <ModalBody display="flex" flexDirection="row">
+            <ModalCloseButton />
+            <Image
+              w="2xl"
+              h="2xl"
+              src={`${process.env.REACT_APP_STATIC_FILES_URL}/static/${postData?.node?.medias[0]?.url}`}
+            />
+            <BoxLayout>
+              <Text>{postData.node?.user?.username}</Text>
+              <Text>{postData.node?.description}</Text>
+            </BoxLayout>
+          </ModalBody>
+          <Btn onClick={handleGetNextPost} left="100%" position="absolute">
+            Next
+          </Btn>
+        </ModalContent>
+      </ModalOverlay>
+    </Modal>
+  );
+};
 
 const ProfilePostsList: FC<Props> = (props) => {
   const { initialQueryRef } = props;
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const data = usePreloadedQuery<ProfileDetailSectionQuery>(GET_POSTS_BY_SLUG, initialQueryRef);
+  const [postData, setPostData] = useState<PostDataType>(null);
+  const handleSelectPostDetail = useCallback((item: PostDataType) => {
+    setPostData(item);
+    onOpen();
+  }, []);
+
+  const handleGetPreviousPost = useCallback(() => {
+    console.log('previous');
+  }, []);
+
+  const handleGetNextPost = useCallback(() => {
+    console.log('next');
+  }, []);
 
   return (
     <Grid templateColumns="repeat(1, 1fr 1fr 1fr)">
       {data.getPostsBySlug.edges?.map((item) => (
-        <GridItem cursor="pointer" padding="2">
+        <GridItem
+          key={item?.node?.id}
+          onClick={() => handleSelectPostDetail(item)}
+          cursor="pointer"
+          padding="2">
           <Image
             src={`${process.env.REACT_APP_STATIC_FILES_URL}/static/${item?.node?.medias[0]?.url}`}
           />
         </GridItem>
       ))}
+      <VerticallyCenterModal
+        handleGetPreviousPost={handleGetPreviousPost}
+        handleGetNextPost={handleGetNextPost}
+        postData={postData}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Grid>
   );
 };
@@ -118,7 +207,9 @@ const ProfileDetailSection = () => {
         })
       });
     }
-    getPostsBySlugLoadQuery({});
+    getPostsBySlugLoadQuery({
+      username: slug
+    });
   }, []);
 
   return (
