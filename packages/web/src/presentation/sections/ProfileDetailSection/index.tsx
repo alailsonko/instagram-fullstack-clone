@@ -108,10 +108,20 @@ interface ModalProps {
   handleGetNextPost: () => void;
   handleGetPreviousPost: () => void;
   postData: PostDataType;
+  postIndex: number;
+  postsDataLen: number;
 }
 
 const VerticallyCenterModal: FC<ModalProps> = (props) => {
-  const { isOpen, onClose, postData, handleGetNextPost, handleGetPreviousPost } = props;
+  const {
+    isOpen,
+    onClose,
+    postData,
+    handleGetNextPost,
+    handleGetPreviousPost,
+    postIndex,
+    postsDataLen
+  } = props;
   if (!postData) {
     return <></>;
   }
@@ -119,9 +129,12 @@ const VerticallyCenterModal: FC<ModalProps> = (props) => {
     <Modal size="6xl" onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay>
         <ModalContent position="relative" display="flex" flexDirection="row" alignItems="center">
-          <Btn onClick={handleGetPreviousPost} right="100%" position="absolute">
-            Previous
-          </Btn>
+          {postIndex !== 0 && (
+            <Btn onClick={handleGetPreviousPost} right="100%" position="absolute">
+              Previous
+            </Btn>
+          )}
+
           <ModalCloseButton />
           <ModalBody display="flex" flexDirection="row">
             <ModalCloseButton />
@@ -135,9 +148,11 @@ const VerticallyCenterModal: FC<ModalProps> = (props) => {
               <Text>{postData.node?.description}</Text>
             </BoxLayout>
           </ModalBody>
-          <Btn onClick={handleGetNextPost} left="100%" position="absolute">
-            Next
-          </Btn>
+          {postIndex !== postsDataLen - 1 && (
+            <Btn onClick={handleGetNextPost} left="100%" position="absolute">
+              Next
+            </Btn>
+          )}
         </ModalContent>
       </ModalOverlay>
     </Modal>
@@ -149,25 +164,45 @@ const ProfilePostsList: FC<Props> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const data = usePreloadedQuery<ProfileDetailSectionQuery>(GET_POSTS_BY_SLUG, initialQueryRef);
   const [postData, setPostData] = useState<PostDataType>(null);
-  const handleSelectPostDetail = useCallback((item: PostDataType) => {
-    setPostData(item);
-    onOpen();
-  }, []);
+  const [postIndex, setPostIndex] = useState<number>(0);
+  const [postsDataLen, setPostsDataLen] = useState<number>(0);
 
-  const handleGetPreviousPost = useCallback(() => {
+  const handleGetPreviousPost = () => {
     console.log('previous');
-  }, []);
+    setPostIndex((prevState) => prevState - 1);
+  };
 
-  const handleGetNextPost = useCallback(() => {
+  const handleGetNextPost = () => {
     console.log('next');
+    setPostIndex((prevState) => prevState + 1);
+  };
+
+  useEffect(() => {
+    if (!data.getPostsBySlug.edges) {
+      return;
+    }
+    setPostsDataLen(data.getPostsBySlug.edges.length);
+    setPostData(data.getPostsBySlug.edges[postIndex]);
+  }, [postIndex]);
+
+  const handleSelectPostDetail = useCallback((item: PostDataType, index: number) => {
+    if (!data.getPostsBySlug.edges) {
+      return;
+    }
+    setPostIndex(index);
+    setPostData(data.getPostsBySlug.edges[index]);
+
+    if (!isOpen) {
+      onOpen();
+    }
   }, []);
 
   return (
     <Grid templateColumns="repeat(1, 1fr 1fr 1fr)">
-      {data.getPostsBySlug.edges?.map((item) => (
+      {data.getPostsBySlug.edges?.map((item, index) => (
         <GridItem
           key={item?.node?.id}
-          onClick={() => handleSelectPostDetail(item)}
+          onClick={() => handleSelectPostDetail(item, index)}
           cursor="pointer"
           padding="2">
           <Image
@@ -178,6 +213,8 @@ const ProfilePostsList: FC<Props> = (props) => {
       <VerticallyCenterModal
         handleGetPreviousPost={handleGetPreviousPost}
         handleGetNextPost={handleGetNextPost}
+        postIndex={postIndex}
+        postsDataLen={postsDataLen}
         postData={postData}
         isOpen={isOpen}
         onClose={onClose}
