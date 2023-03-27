@@ -9,7 +9,11 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "mono:start:dev": "concurrently \"yarn workspace ig-clone-server start:dev\" \"yarn workspace ig-clone-web dev\""
+  },
   "devDependencies": {
+    "concurrently": "^7.6.0",
     "typescript": "^5.0.2"
   }
 }
