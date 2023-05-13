@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - es-net
+
+  mongodb:
+    image: mongo:4.4.6
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-net
+
+  postgres:
+    image: postgres:13.3
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-net
+
+  cassandra:
+    image: cassandra:3.11.10
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+    ports:
+      - "9042:9042"
+    networks:
+      - cassandra-net
+
+networks:
+  es-net:
+  mongo-net:
+  pg-net:
+  cassandra-net:
+
+volumes:
+  es-data:
+  mongo-data:
+  pg-data:
+  cassandra-data:
