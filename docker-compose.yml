@@ -1,6 +1,36 @@
 version: '3.8'
 
 services:
+  postgres-keycloak:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres-keycloak
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    command: start-dev
+    ports:
+      - 8082:8080
+    depends_on:
+      - postgres-keycloak
+  
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
     environment:
@@ -42,14 +72,43 @@ services:
     networks:
       - cassandra-net
 
+  redis:
+    image: redis:6.2.3
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - redis-net
+
+  zookeeper:
+    image: zookeeper:3.6.3
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTHENTICATION_PLAIN_LOGIN_ENABLE: "false"
+      KAFKA_AUTHORIZATION_ENABLE: "false"
+    ports:
+      - "9092:9092"
+
 networks:
   es-net:
   mongo-net:
   pg-net:
   cassandra-net:
+  kafka-net:
+  redis-net:
 
 volumes:
   es-data:
   mongo-data:
   pg-data:
   cassandra-data:
+  redis-data:
+  postgres_data:
+    driver: local
