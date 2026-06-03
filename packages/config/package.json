@@ -1,0 +1,10 @@
+{
+  "name": "@instagram-clone/config",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./eslint": "./eslint.config.base.mjs",
+    "./jest": "./jest.base.config.js"
+  }
+}

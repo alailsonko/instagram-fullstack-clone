@@ -7,6 +7,7 @@ FROM base AS deps
 WORKDIR /app
 
 COPY package.json yarn.lock .yarnrc.yml ./
+COPY packages/config/package.json  ./packages/config/
 COPY packages/api/package.json     ./packages/api/
 COPY packages/users/package.json   ./packages/users/
 COPY packages/auth/package.json    ./packages/auth/
@@ -21,8 +22,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 
 COPY package.json yarn.lock .yarnrc.yml ./
+COPY packages/config           ./packages/config
 COPY packages/api/package.json     ./packages/api/
-COPY packages/users ./packages/users
+COPY packages/users            ./packages/users
 COPY packages/auth/package.json    ./packages/auth/
 COPY packages/web/package.json     ./packages/web/
 
@@ -33,6 +35,7 @@ FROM base AS prod-deps
 WORKDIR /app
 
 COPY package.json yarn.lock .yarnrc.yml ./
+COPY packages/config/package.json  ./packages/config/
 COPY packages/api/package.json     ./packages/api/
 COPY packages/users/package.json   ./packages/users/
 COPY packages/auth/package.json    ./packages/auth/

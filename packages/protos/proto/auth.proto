@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package instagram.auth;
+
+option java_package = "com.instagram.auth";
+option csharp_namespace = "Instagram.Auth";
+option php_namespace = "Instagram\\Auth";
+
+message CreateAccountRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message CreateAccountResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message VerifyAccountRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message VerifyAccountResponse {
+  bool verified = 1;
+  string message = 2;
+}
+
+service AuthService {
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+  rpc VerifyAccount(VerifyAccountRequest) returns (VerifyAccountResponse);
+}
