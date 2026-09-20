@@ -1,0 +1,29 @@
+{
+  "name": "instagram-fullstack-clone",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "yarn@4.18.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -At run build",
+    "dev": "yarn workspaces foreach -Api --jobs unlimited run start:dev",
+    "start": "yarn workspaces foreach -Api --jobs unlimited run start",
+    "lint": "yarn workspaces foreach -Ap run lint",
+    "format": "yarn workspaces foreach -Ap run format",
+    "test": "yarn workspaces foreach -Ap run test",
+    "test:e2e": "yarn workspaces foreach -At run test:e2e",
+    "typecheck": "yarn workspaces foreach -Ap run typecheck",
+    "clean": "yarn workspaces foreach -Ap run clean",
+    "server": "yarn workspace @ig/server",
+    "web": "yarn workspace @ig/web"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^6.0.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

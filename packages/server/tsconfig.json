@@ -1,0 +1,9 @@
+{
+  "extends": "@ig/tsconfig/nestjs.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "types": ["vitest/globals", "node"]
+  },
+  "include": ["src", "test", "*.config.ts"]
+}
