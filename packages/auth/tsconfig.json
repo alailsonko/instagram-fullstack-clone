@@ -1,7 +1,0 @@
-{
-  "extends": "@instagram-clone/config/tsconfig.base.json",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist"
-  }
-}
